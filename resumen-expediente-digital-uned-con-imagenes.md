@@ -50,7 +50,7 @@ Permite el acceso seguro al sistema mediante credenciales institucionales.
 **Descripción:**  
 Página de bienvenida después del inicio de sesión exitoso.
 
-![Pantalla Principal](1764687549808/pantalla-02-informacion-personal.png)
+![Pantalla Principal](1764687549808/pantalla-01-inicio-sesion.png)
 
 **Elementos principales:**
 - Menú de navegación superior con las siguientes opciones:
