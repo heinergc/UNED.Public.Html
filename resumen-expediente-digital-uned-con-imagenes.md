@@ -30,7 +30,7 @@ El sistema gestiona:
 **Descripción:**  
 Página de autenticación del sistema donde los funcionarios ingresan sus credenciales.
 
-![Pantalla de Inicio de Sesión](1764687549808/pantalla-01-inicio-sesion.png)
+![Pantalla de Inicio de Sesión](1764687549808/pantalla-00-principal.png)
 
 **Elementos principales:**
 - Campo de usuario con selector de dominio (@uned.ac.cr o @uned.cr)
