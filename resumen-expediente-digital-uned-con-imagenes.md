@@ -492,4 +492,4 @@ Archivos de imágenes:
 
 ---
 
-**Fin del documento**
+**Ing. Heiner Guido Cambronero.**

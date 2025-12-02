@@ -454,4 +454,4 @@ El sistema destaca por:
 
 ---
 
-**Fin del documento**
+**Ing. Heiner Guido Cambronero.**
