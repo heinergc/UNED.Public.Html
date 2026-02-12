@@ -1,67 +1,67 @@
-# Análisis del Cálculo de Horas Extra
+# AnÃ¡lisis del CÃ¡lculo de Horas Extra
 ## Sistema de Horas Extra - UNED
 
 ---
 
-## ?? Descripción General
+## ðŸ“‹ DescripciÃ³n General
 
 El sistema calcula el pago de horas extra considerando diferentes factores:
 - Tipo de jornada del funcionario (Diurna, Nocturna, Mixta)
-- Días laborados (normales, primer día libre, segundo día libre, feriados)
+- DÃ­as laborados (normales, primer dÃ­a libre, segundo dÃ­a libre, feriados)
 - Cantidad de horas trabajadas
 - Salario nominal del funcionario
 
 ---
 
-## ?? Flujo Principal del Proceso
+## ðŸ”„ Flujo Principal del Proceso
 
 ```mermaid
 flowchart TD
     A[Inicio: btnProcesar_Click] --> B[Obtener registros del DataGrid]
     B --> C[procesarRegistros]
-    C --> D{¿Hay registros?}
+    C --> D{Hay registros?}
     D -->|No| E[Finalizar]
-    D -->|Sí| F[Iterar por cada registro]
-    F --> G{¿Mismo funcionario y mes?}
-    G -->|Sí| H[Agregar detalle a registro existente]
+    D -->|SÃ­| F[Iterar por cada registro]
+    F --> G{Â¿Mismo funcionario y mes?}
+    G -->|SÃ­| H[Agregar detalle a registro existente]
     G -->|No| I[Crear nuevo registro de horas extra]
-    I --> J[Redondear total anterior: múltiplo de 0.05]
+    I --> J[Redondear total anterior: mÃºltiplo de 0.05]
     J --> K[Guardar en lista]
     K --> H
     H --> L[procesarRegistro]
-    L --> M{¿Más registros?}
-    M -->|Sí| F
-    M -->|No| N[Redondear último total]
-    N --> O[Guardar último registro]
+    L --> M{Â¿MÃ¡s registros?}
+    M -->|SÃ­| F
+    M -->|No| N[Redondear Ãºltimo total]
+    N --> O[Guardar Ãºltimo registro]
     O --> P[Mostrar reporte]
     P --> E
 ```
 
 ---
 
-## ?? Proceso de Cálculo por Registro
+## ðŸ“Š Proceso de CÃ¡lculo por Registro
 
 ```mermaid
 flowchart TD
-    A[procesarRegistro] --> B[Obtener datos básicos]
+    A[procesarRegistro] --> B[Obtener datos bÃ¡sicos]
     B --> C[Consultar salario nominal]
     C --> D[Calcular horas laboradas]
-    D --> E[Obtener declaración de jornada]
+    D --> E[Obtener declaraciÃ³n de jornada]
     E --> F[Determinar cantidad de horas mes]
-    F --> G{¿Es día feriado?}
-    G -->|Sí| H[Cálculo para FERIADO]
-    G -->|No| I[Obtener días declarados]
-    I --> J[Calcular días libres]
-    J --> K{¿Es 2do día libre?}
-    K -->|Sí| H
-    K -->|No| L[Cálculo TIEMPO Y MEDIO]
+    F --> G{Â¿Es dÃ­a feriado?}
+    G -->|SÃ­| H[CÃ¡lculo para FERIADO]
+    G -->|No| I[Obtener dÃ­as declarados]
+    I --> J[Calcular dÃ­as libres]
+    J --> K{Â¿Es 2do dÃ­a libre?}
+    K -->|SÃ­| H
+    K -->|No| L[CÃ¡lculo TIEMPO Y MEDIO]
     H --> M[Retornar detalle]
     L --> M
 ```
 
 ---
 
-## ?? Cálculo de Horas Mes según Tipo de Jornada
+## ðŸ“ˆ CÃ¡lculo de Horas Mes segÃºn Tipo de Jornada
 
 ```mermaid
 graph LR
@@ -69,15 +69,15 @@ graph LR
     B -->|D: Diurna| C[240 horas/mes]
     B -->|N: Nocturna| D[180 horas/mes]
     B -->|M: Mixta| E[210 horas/mes]
-    C --> F[Multiplicar por fracción de jornada]
+    C --> F[Multiplicar por fracciÃ³n de jornada]
     D --> F
     E --> F
-    F --> G[HorasMes = Base * NumJornada/DenomJornada]
+    F --> G[HorasMes = Base Ã— NumJornada/DenomJornada]
 ```
 
-### Fórmula:
+### FÃ³rmula:
 ```
-HorasMes = HorasBase × (NumJornada / DenomJornada)
+HorasMes = HorasBase Ã— (NumJornada / DenomJornada)
 
 Donde:
 - HorasBase = 240 (Diurna) | 180 (Nocturna) | 210 (Mixta)
@@ -87,59 +87,59 @@ Donde:
 
 **Ejemplo:** Si un funcionario tiene jornada diurna de 3/4:
 ```
-HorasMes = 240 × (3/4) = 180 horas
+HorasMes = 240 Ã— (3/4) = 180 horas
 ```
 
 ---
 
-## ?? Determinación del Tipo de Día
+## ðŸ—“ï¸ DeterminaciÃ³n del Tipo de DÃ­a
 
 ```mermaid
 flowchart TD
-    A[Inicio] --> B{¿Es feriado?}
-    B -->|Sí| C[FERIADO]
-    B -->|No| D[Obtener días de declaración]
+    A[Inicio] --> B{Â¿Es feriado?}
+    B -->|SÃ­| C[FERIADO]
+    B -->|No| D[Obtener dÃ­as de declaraciÃ³n]
     D --> E[Obtener semana natural: L,K,M,J,V,S,D]
-    E --> F{¿Primer día laboral > Lunes?}
-    F -->|Sí| G[Ajustar semana natural]
+    E --> F{Â¿Primer dÃ­a laboral > Lunes?}
+    F -->|SÃ­| G[Ajustar semana natural]
     F -->|No| H[Mantener semana natural]
-    G --> I[Calcular días libres]
+    G --> I[Calcular dÃ­as libres]
     H --> I
-    I --> J{¿Cuántos días libres?}
-    J -->|1 día| K{¿Es ese día?}
-    J -->|2+ días| L{¿Posición día libre?}
-    K -->|Sí| M[PRIMER DÍA LIBRE]
-    K -->|No| N[DÍA NORMAL]
-    L -->|Posición > 0| O[SEGUNDO DÍA LIBRE]
-    L -->|Posición = 0| M
+    I --> J{Â¿CuÃ¡ntos dÃ­as libres?}
+    J -->|1 dÃ­a| K{Â¿Es ese dÃ­a?}
+    J -->|2+ dÃ­as| L{Â¿PosiciÃ³n dÃ­a libre?}
+    K -->|SÃ­| M[PRIMER DÃA LIBRE]
+    K -->|No| N[DÃA NORMAL]
+    L -->|PosiciÃ³n > 0| O[SEGUNDO DÃA LIBRE]
+    L -->|PosiciÃ³n = 0| M
 ```
 
 ---
 
-## ?? Cálculo de Montos según Tipo de Día
+## ðŸ’° CÃ¡lculo de Montos segÃºn Tipo de DÃ­a
 
-### 1?? Días Feriados y Segundo Día Libre
+### 1ï¸âƒ£ DÃ­as Feriados y Segundo DÃ­a Libre
 
 ```mermaid
 flowchart TD
-    A[Día Feriado o 2do Día Libre] --> B{¿Horas > 8?}
-    B -->|Sí| C[Primeras 8 horas: TIEMPO SENCILLO]
+    A[DÃ­a Feriado o 2do DÃ­a Libre] --> B{Â¿Horas > 8?}
+    B -->|SÃ­| C[Primeras 8 horas: TIEMPO SENCILLO]
     B -->|No| D[Todas las horas: TIEMPO SENCILLO]
     C --> E[Horas restantes: TIEMPO DOBLE]
-    C --> F[Monto TS = Salario / HorasMes × 8]
-    E --> G[Monto TD = Salario / HorasMes/2 × HorasRestantes]
-    D --> H[Monto TS = Salario / HorasMes × HorasTrabajadas]
+    C --> F[Monto TS = Salario / HorasMes Ã— 8]
+    E --> G[Monto TD = Salario / HorasMes/2 Ã— HorasRestantes]
+    D --> H[Monto TS = Salario / HorasMes Ã— HorasTrabajadas]
     F --> I[Total = Monto TS + Monto TD]
     G --> I
     H --> J[Total = Monto TS]
 ```
 
-#### Fórmulas:
+#### FÃ³rmulas:
 
-**Caso A: Horas trabajadas ? 8**
+**Caso A: Horas trabajadas â‰¤ 8**
 ```
 TiempoSencillo = HorasTrabajadas
-MontoTotal = (SalarioNominal / HorasMes) × TiempoSencillo
+MontoTotal = (SalarioNominal / HorasMes) Ã— TiempoSencillo
 ```
 
 **Caso B: Horas trabajadas > 8**
@@ -147,39 +147,39 @@ MontoTotal = (SalarioNominal / HorasMes) × TiempoSencillo
 TiempoSencillo = 8 horas
 TiempoDoble = HorasTrabajadas - 8
 
-MontoTiempoSencillo = (SalarioNominal / HorasMes) × 8
-MontoTiempoDoble = (SalarioNominal / (HorasMes / 2)) × TiempoDoble
+MontoTiempoSencillo = (SalarioNominal / HorasMes) Ã— 8
+MontoTiempoDoble = (SalarioNominal / (HorasMes / 2)) Ã— TiempoDoble
 
 MontoTotal = MontoTiempoSencillo + MontoTiempoDoble
 ```
 
 ---
 
-### 2?? Días Normales y Primer Día Libre
+### 2ï¸âƒ£ DÃ­as Normales y Primer DÃ­a Libre
 
 ```mermaid
 flowchart TD
-    A[Día Normal o 1er Día Libre] --> B[Todas las horas: TIEMPO Y MEDIO]
+    A[DÃ­a Normal o 1er DÃ­a Libre] --> B[Todas las horas: TIEMPO Y MEDIO]
     B --> C[TiempoYMedio = HorasTrabajadas]
-    C --> D[Monto = Salario / HorasMes/1.5 × HorasTrabajadas]
+    C --> D[Monto = Salario / HorasMes/1.5 Ã— HorasTrabajadas]
     D --> E[Total = Monto TYM]
 ```
 
-#### Fórmula:
+#### FÃ³rmula:
 
 ```
 TiempoYMedio = HorasTrabajadas
-MontoTotal = (SalarioNominal / (HorasMes / 1.5)) × TiempoYMedio
+MontoTotal = (SalarioNominal / (HorasMes / 1.5)) Ã— TiempoYMedio
 ```
 
 **Equivalente simplificado:**
 ```
-MontoTotal = (SalarioNominal × 1.5 / HorasMes) × TiempoYMedio
+MontoTotal = (SalarioNominal Ã— 1.5 / HorasMes) Ã— TiempoYMedio
 ```
 
 ---
 
-## ?? Cálculo de Diferencia de Horas
+## â±ï¸ CÃ¡lculo de Diferencia de Horas
 
 ```mermaid
 flowchart LR
@@ -200,42 +200,42 @@ flowchart LR
     K --> L
 ```
 
-### Función `diferenciaHoras`:
+### FunciÃ³n `diferenciaHoras`:
 ```vb
-Minutos ? Conversión
-   15   ?   0.25
-   30   ?   0.50
-   45   ?   0.75
-  Otro  ?   0.00
+Minutos â†’ ConversiÃ³n
+   15   â†’   0.25
+   30   â†’   0.50
+   45   â†’   0.75
+  Otro  â†’   0.00
 ```
 
 ---
 
-## ?? Redondeo Final
+## ðŸ”¢ Redondeo Final
 
 El sistema aplica un redondeo especial al monto total de cada funcionario por mes:
 
 ```mermaid
 flowchart LR
     A[Monto Total Calculado] --> B[Dividir entre 0.05]
-    B --> C[Redondear al entero más cercano]
+    B --> C[Redondear al entero mÃ¡s cercano]
     C --> D[Multiplicar por 0.05]
     D --> E[Monto Total Final]
 ```
 
-### Fórmula:
+### FÃ³rmula:
 ```vb
-MontoFinal = Math.Round(MontoTotal / 0.05, 0) × 0.05
+MontoFinal = Math.Round(MontoTotal / 0.05, 0) Ã— 0.05
 ```
 
 **Ejemplos:**
-- 1,234.56 ? 1,234.55
-- 1,234.58 ? 1,234.60
-- 1,234.52 ? 1,234.50
+- 1,234.56 â†’ 1,234.55
+- 1,234.58 â†’ 1,234.60
+- 1,234.52 â†’ 1,234.50
 
 ---
 
-## ?? Estructura de Datos
+## ðŸ—‚ï¸ Estructura de Datos
 
 ```mermaid
 classDiagram
@@ -274,146 +274,146 @@ classDiagram
     }
     
     TBRMMAEHOREXT "1" --> "*" TBRMDETHOREXT : contiene
-    TBRMDETHOREXT --> TBPEMAEDECJOR : usa para cálculo
+    TBRMDETHOREXT --> TBPEMAEDECJOR : usa para cÃ¡lculo
 ```
 
 ---
 
-## ?? Ejemplo Completo de Cálculo
+## ðŸ“ Ejemplo Completo de CÃ¡lculo
 
 ### Datos del Funcionario:
-- **Identificación:** 1-1234-5678
-- **Salario Nominal:** ?500,000
+- **IdentificaciÃ³n:** 1-1234-5678
+- **Salario Nominal:** â‚¡500,000
 - **Tipo Jornada:** Diurna (D)
 - **Jornada:** 1/1 (completa)
-- **Días declarados:** L, K, M, J, V (lunes a viernes)
-- **Días libres:** S, D (sábado y domingo)
+- **DÃ­as declarados:** L, K, M, J, V (lunes a viernes)
+- **DÃ­as libres:** S, D (sÃ¡bado y domingo)
 
 ### Escenario: Horas trabajadas en la semana
 
-#### Registro 1: Lunes (día normal)
+#### Registro 1: Lunes (dÃ­a normal)
 - **Horas trabajadas:** 3 horas
-- **Tipo:** Día normal
-- **HorasMes:** 240 × (1/1) = 240
+- **Tipo:** DÃ­a normal
+- **HorasMes:** 240 Ã— (1/1) = 240
 
-**Cálculo:**
+**CÃ¡lculo:**
 ```
 Tipo: TIEMPO Y MEDIO
 Horas TYM = 3
-Monto = (500,000 / (240 / 1.5)) × 3
-Monto = (500,000 / 160) × 3
-Monto = 3,125 × 3
-Monto = ?9,375
+Monto = (500,000 / (240 / 1.5)) Ã— 3
+Monto = (500,000 / 160) Ã— 3
+Monto = 3,125 Ã— 3
+Monto = â‚¡9,375
 ```
 
-#### Registro 2: Sábado (primer día libre)
+#### Registro 2: SÃ¡bado (primer dÃ­a libre)
 - **Horas trabajadas:** 4 horas
-- **Tipo:** Primer día libre
+- **Tipo:** Primer dÃ­a libre
 
-**Cálculo:**
+**CÃ¡lculo:**
 ```
 Tipo: TIEMPO Y MEDIO
 Horas TYM = 4
-Monto = (500,000 / 160) × 4
-Monto = 3,125 × 4
-Monto = ?12,500
+Monto = (500,000 / 160) Ã— 4
+Monto = 3,125 Ã— 4
+Monto = â‚¡12,500
 ```
 
-#### Registro 3: Domingo (segundo día libre)
+#### Registro 3: Domingo (segundo dÃ­a libre)
 - **Horas trabajadas:** 5 horas
-- **Tipo:** Segundo día libre
+- **Tipo:** Segundo dÃ­a libre
 
-**Cálculo:**
+**CÃ¡lculo:**
 ```
-Tipo: TIEMPO SENCILLO (todas las horas ? 8)
+Tipo: TIEMPO SENCILLO (todas las horas â‰¤ 8)
 Horas TS = 5
-Monto = (500,000 / 240) × 5
-Monto = 2,083.33 × 5
-Monto = ?10,416.65
+Monto = (500,000 / 240) Ã— 5
+Monto = 2,083.33 Ã— 5
+Monto = â‚¡10,416.65
 ```
 
 #### Registro 4: 25 de diciembre (feriado)
 - **Horas trabajadas:** 10 horas
 - **Tipo:** Feriado
 
-**Cálculo:**
+**CÃ¡lculo:**
 ```
 Tipo: MIXTO (TS + TD)
 Horas TS = 8
 Horas TD = 2
 
-Monto TS = (500,000 / 240) × 8 = 2,083.33 × 8 = ?16,666.64
-Monto TD = (500,000 / 120) × 2 = 4,166.67 × 2 = ?8,333.34
+Monto TS = (500,000 / 240) Ã— 8 = 2,083.33 Ã— 8 = â‚¡16,666.64
+Monto TD = (500,000 / 120) Ã— 2 = 4,166.67 Ã— 2 = â‚¡8,333.34
 
-Monto Total = 16,666.64 + 8,333.34 = ?24,999.98
+Monto Total = 16,666.64 + 8,333.34 = â‚¡24,999.98
 ```
 
 ### Total del Mes (antes de redondeo):
 ```
 Total = 9,375 + 12,500 + 10,416.65 + 24,999.98
-Total = ?57,291.63
+Total = â‚¡57,291.63
 ```
 
-### Total Final (después de redondeo a 0.05):
+### Total Final (despuÃ©s de redondeo a 0.05):
 ```
-Redondeo = Round(57,291.63 / 0.05, 0) × 0.05
-Redondeo = Round(1,145,832.6, 0) × 0.05
-Redondeo = 1,145,833 × 0.05
-Total Final = ?57,291.65
+Redondeo = Round(57,291.63 / 0.05, 0) Ã— 0.05
+Redondeo = Round(1,145,832.6, 0) Ã— 0.05
+Redondeo = 1,145,833 Ã— 0.05
+Total Final = â‚¡57,291.65
 ```
 
 ---
 
-## ?? Resumen de Tasas de Pago
+## ðŸ“Š Resumen de Tasas de Pago
 
-| Tipo de Día | Condición | Tasa de Pago | Fórmula |
+| Tipo de DÃ­a | CondiciÃ³n | Tasa de Pago | FÃ³rmula |
 |-------------|-----------|--------------|---------|
-| **Día Normal** | - | 1.5× | `Salario / (HorasMes / 1.5)` |
-| **Primer Día Libre** | - | 1.5× | `Salario / (HorasMes / 1.5)` |
-| **Segundo Día Libre** | Horas ? 8 | 1.0× | `Salario / HorasMes` |
-| **Segundo Día Libre** | Horas > 8 (primeras 8) | 1.0× | `Salario / HorasMes` |
-| **Segundo Día Libre** | Horas > 8 (restantes) | 2.0× | `Salario / (HorasMes / 2)` |
-| **Feriado** | Horas ? 8 | 1.0× | `Salario / HorasMes` |
-| **Feriado** | Horas > 8 (primeras 8) | 1.0× | `Salario / HorasMes` |
-| **Feriado** | Horas > 8 (restantes) | 2.0× | `Salario / (HorasMes / 2)` |
+| **DÃ­a Normal** | - | 1.5Ã— | `Salario / (HorasMes / 1.5)` |
+| **Primer DÃ­a Libre** | - | 1.5Ã— | `Salario / (HorasMes / 1.5)` |
+| **Segundo DÃ­a Libre** | Horas â‰¤ 8 | 1.0Ã— | `Salario / HorasMes` |
+| **Segundo DÃ­a Libre** | Horas > 8 (primeras 8) | 1.0Ã— | `Salario / HorasMes` |
+| **Segundo DÃ­a Libre** | Horas > 8 (restantes) | 2.0Ã— | `Salario / (HorasMes / 2)` |
+| **Feriado** | Horas â‰¤ 8 | 1.0Ã— | `Salario / HorasMes` |
+| **Feriado** | Horas > 8 (primeras 8) | 1.0Ã— | `Salario / HorasMes` |
+| **Feriado** | Horas > 8 (restantes) | 2.0Ã— | `Salario / (HorasMes / 2)` |
 
 ---
 
-## ??? Funciones Auxiliares Clave
+## ðŸ”§ Funciones Auxiliares Clave
 
 ### 1. `traerSalarioNominal`
 - Obtiene la escala salarial vigente para la fecha
-- Convierte la identificación al formato AS400
+- Convierte la identificaciÃ³n al formato AS400
 - Consulta el salario desde el sistema AS400
 - Retorna el salario dividido entre 100
 
 ### 2. `datosDeclaracion`
-- Consulta la declaración de jornada del funcionario
-- Retorna tipo de jornada y fracción (numerador/denominador)
+- Consulta la declaraciÃ³n de jornada del funcionario
+- Retorna tipo de jornada y fracciÃ³n (numerador/denominador)
 
 ### 3. `diasDeclaracion`
-- Obtiene los días declarados en la jornada laboral
-- Retorna lista de días: L, K, M, J, V, S, D
+- Obtiene los dÃ­as declarados en la jornada laboral
+- Retorna lista de dÃ­as: L, K, M, J, V, S, D
 
 ### 4. `diaFeriado`
 - Consulta en BD si la fecha es feriado nacional
 - Retorna `True` o `False`
 
 ### 5. `convertiCedulaSGDPAS400`
-- Convierte formato de cédula de SGD a formato AS400
-- Ejemplo: 010800681 ? 1-0800-681
+- Convierte formato de cÃ©dula de SGD a formato AS400
+- Ejemplo: 010800681 â†’ 1-0800-681
 
 ---
 
-## ?? Manejo de Errores
+## âš ï¸ Manejo de Errores
 
 El sistema registra errores por cada registro que no puede procesar:
 
 ```mermaid
 flowchart LR
-    A[Error en procesarRegistro] --> B[Capturar excepción]
+    A[Error en procesarRegistro] --> B[Capturar excepciÃ³n]
     B --> C[Crear mensaje de error]
-    C --> D[Incluir: Consecutivo, Línea, Fecha]
+    C --> D[Incluir: Consecutivo, LÃ­nea, Fecha]
     D --> E[Agregar a cListaErrores]
     E --> F[Continuar con siguiente registro]
     F --> G[Mostrar errores en reporte final]
@@ -427,37 +427,37 @@ no Pudo Ser Procesado ([Mensaje de error])"
 
 ---
 
-## ?? Validaciones
+## âœ… Validaciones
 
-1. **Fecha Final ? Fecha Inicial**
+1. **Fecha Final â‰¥ Fecha Inicial**
 2. **Existencia de registros en el rango de fechas**
-3. **Datos de declaración de jornada completos**
-4. **Tipo de funcionario válido (Nacional/Extranjero)**
-5. **Identificación AS400 disponible**
+3. **Datos de declaraciÃ³n de jornada completos**
+4. **Tipo de funcionario vÃ¡lido (Nacional/Extranjero)**
+5. **IdentificaciÃ³n AS400 disponible**
 6. **Escala salarial vigente para la fecha**
 7. **Salario nominal > 0**
 
 ---
 
-## ?? Notas Importantes
+## ðŸ“Œ Notas Importantes
 
-1. **Agrupación:** Los registros se agrupan por funcionario, año y mes
-2. **Orden:** Los registros deben estar ordenados por identificación, año, mes
+1. **AgrupaciÃ³n:** Los registros se agrupan por funcionario, aÃ±o y mes
+2. **Orden:** Los registros deben estar ordenados por identificaciÃ³n, aÃ±o, mes
 3. **Redondeo:** Se aplica solo al final del mes completo, no por registro
 4. **Minutos:** Solo se reconocen intervalos de 15 minutos (0, 15, 30, 45)
-5. **Días Libres:** El orden de los días libres es importante para determinar el segundo día libre
+5. **DÃ­as Libres:** El orden de los dÃ­as libres es importante para determinar el segundo dÃ­a libre
 6. **Salario:** Se obtiene del sistema AS400 en tiempo real para cada fecha
 
 ---
 
-## ?? Optimizaciones Posibles
+## ðŸš€ Optimizaciones Posibles
 
 1. Cachear consultas de salario para la misma fecha
-2. Pre-cargar feriados del año en memoria
+2. Pre-cargar feriados del aÃ±o en memoria
 3. Validar datos antes de procesamiento masivo
-4. Implementar procesamiento asíncrono para grandes volúmenes
-5. Agregar logs detallados del proceso de cálculo
+4. Implementar procesamiento asÃ­ncrono para grandes volÃºmenes
+5. Agregar logs detallados del proceso de cÃ¡lculo
 
 ---
 
-*Documento generado a partir del análisis del código fuente del Sistema de Horas Extra - UNED*
+*Documento generado a partir del anÃ¡lisis del cÃ³digo fuente del Sistema de Horas Extra - UNED*
