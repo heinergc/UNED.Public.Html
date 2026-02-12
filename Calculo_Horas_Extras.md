@@ -1,15 +1,23 @@
-# Análisis del Cálculo de Horas Extra
+﻿# Análisis del Cálculo de Horas Extra
 ## Sistema de Horas Extra - UNED
+
+**Versión:** 1.1  
+**Última actualización:** Febrero 2026  
+**Archivo principal:** `frmProcesarHorasExt.vb`
 
 ---
 
 ## 📋 Descripción General
 
 El sistema calcula el pago de horas extra considerando diferentes factores:
-- Tipo de jornada del funcionario (Diurna, Nocturna, Mixta)
-- Días laborados (normales, primer día libre, segundo día libre, feriados)
-- Cantidad de horas trabajadas
-- Salario nominal del funcionario
+- **Tipo de jornada** del funcionario (Diurna, Nocturna, Mixta)
+- **Días laborados** (normales, primer día libre, segundo día libre, feriados)
+- **Cantidad de horas trabajadas** (en intervalos de 15 minutos)
+- **Salario nominal** del funcionario (obtenido del sistema AS400)
+- **Fracción de jornada** (tiempo completo, medio tiempo, tres cuartos, etc.)
+
+### 🎯 Objetivo del Sistema
+Automatizar el cálculo de pagos por horas extraordinarias laboradas por funcionarios de la UNED, asegurando el cumplimiento de las normativas laborales costarricenses y aplicando correctamente las tasas diferenciadas según el tipo de día.
 
 ---
 
@@ -19,16 +27,16 @@ El sistema calcula el pago de horas extra considerando diferentes factores:
 flowchart TD
     A[Inicio: btnProcesar_Click] --> B[Obtener registros del DataGrid]
     B --> C[procesarRegistros]
-    C --> D{Hay registros?}
+    C --> D{¿Hay registros?}
     D -->|No| E[Finalizar]
     D -->|Sí| F[Iterar por cada registro]
     F --> G{¿Mismo funcionario y mes?}
     G -->|Sí| H[Agregar detalle a registro existente]
-    G -->|No| I[Crear nuevo registro de horas extra]
-    I --> J[Redondear total anterior: múltiplo de 0.05]
-    J --> K[Guardar en lista]
+    G -->|No| I[Redondear total anterior: múltiplo de 0.05]
+    I --> J[Guardar registro anterior en lista]
+    J --> K[Crear nuevo registro de horas extra]
     K --> H
-    H --> L[procesarRegistro]
+    H --> L[procesarRegistro: calcular detalle]
     L --> M{¿Más registros?}
     M -->|Sí| F
     M -->|No| N[Redondear último total]
@@ -39,7 +47,7 @@ flowchart TD
 
 ---
 
-## 📊 Proceso de Cálculo por Registro
+## 🔍 Proceso de Cálculo por Registro
 
 ```mermaid
 flowchart TD
@@ -48,7 +56,7 @@ flowchart TD
     C --> D[Calcular horas laboradas]
     D --> E[Obtener declaración de jornada]
     E --> F[Determinar cantidad de horas mes]
-    F --> G{¿Es día feriado?}
+    F --> G{¿Es feriado?}
     G -->|Sí| H[Cálculo para FERIADO]
     G -->|No| I[Obtener días declarados]
     I --> J[Calcular días libres]
@@ -58,10 +66,9 @@ flowchart TD
     H --> M[Retornar detalle]
     L --> M
 ```
-
 ---
 
-## 📈 Cálculo de Horas Mes según Tipo de Jornada
+## 📊 Cálculo de Horas Mes según Tipo de Jornada
 
 ```mermaid
 graph LR
@@ -92,27 +99,49 @@ HorasMes = 240 × (3/4) = 180 horas
 
 ---
 
-## 🗓️ Determinación del Tipo de Día
+## 📅 Determinación del Tipo de Día
 
 ```mermaid
 flowchart TD
-    A[Inicio] --> B{¿Es feriado?}
+    A[Inicio: Clasificar día] --> B{¿Es feriado?}
     B -->|Sí| C[FERIADO]
-    B -->|No| D[Obtener días de declaración]
-    D --> E[Obtener semana natural: L,K,M,J,V,S,D]
-    E --> F{¿Primer día laboral > Lunes?}
-    F -->|Sí| G[Ajustar semana natural]
-    F -->|No| H[Mantener semana natural]
-    G --> I[Calcular días libres]
+    B -->|No| D[Obtener días declarados]
+    D --> E[Semana natural: L,K,M,J,V,S,D]
+    E --> F{¿Primer día laboral > L?}
+    F -->|Sí| G[Rotar semana natural]
+    F -->|No| H[Mantener semana L-D]
+    G --> I[Calcular días libres: Except]
     H --> I
     I --> J{¿Cuántos días libres?}
     J -->|1 día| K{¿Es ese día?}
-    J -->|2+ días| L{¿Posición día libre?}
+    J -->|2+ días| L{¿Índice del día?}
     K -->|Sí| M[PRIMER DÍA LIBRE]
     K -->|No| N[DÍA NORMAL]
-    L -->|Posición > 0| O[SEGUNDO DÍA LIBRE]
-    L -->|Posición = 0| M
+    L -->|Índice > 0| O[SEGUNDO DÍA LIBRE]
+    L -->|Índice = 0| M
+    C --> P[Aplicar tarifa correspondiente]
+    M --> P
+    N --> P
+    O --> P
 ```
+
+### 🔍 Detalles de la Lógica de Días Libres
+
+**Ajuste de Semana Natural:**
+Si la jornada laboral inicia en un día diferente al lunes, la semana natural se ajusta rotando los días. Por ejemplo:
+- Si la semana laboral inicia en **Martes (K)**: La semana natural se rota 2 posiciones → `[M,J,V,S,D,L,K]`
+- Esto asegura que los días libres se identifiquen en el orden correcto
+
+**Cálculo de Días Libres:**
+```vb
+' Se usa la operación Except para obtener los días no declarados
+lDiasLibres = lDiasSemana.Except(lDiasDeclara).ToList
+```
+
+**Determinación de Primer vs Segundo Día Libre:**
+- **Primer día libre:** Es el día libre que aparece primero en la lista ajustada (índice = 0)
+- **Segundo día libre:** Cualquier otro día libre (índice > 0)
+- **Caso especial:** Si solo hay 1 día libre, ese es el primer día libre
 
 ---
 
@@ -211,7 +240,7 @@ Minutos → Conversión
 
 ---
 
-## 🔢 Redondeo Final
+## 🔄 Redondeo Final
 
 El sistema aplica un redondeo especial al monto total de cada funcionario por mes:
 
@@ -235,7 +264,7 @@ MontoFinal = Math.Round(MontoTotal / 0.05, 0) × 0.05
 
 ---
 
-## 🗂️ Estructura de Datos
+## 📦 Estructura de Datos
 
 ```mermaid
 classDiagram
@@ -405,7 +434,7 @@ Total Final = ₡57,291.65
 
 ---
 
-## ⚠️ Manejo de Errores
+## 🔴 Manejo de Errores
 
 El sistema registra errores por cada registro que no puede procesar:
 
