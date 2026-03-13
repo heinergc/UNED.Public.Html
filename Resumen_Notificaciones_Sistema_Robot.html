@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen - Sistema de Notificaciones Robot AD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #003D7A 0%, #0056A3 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+        
+        .header .date {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-left: 5px solid #003D7A;
+            padding: 25px;
+            margin-bottom: 35px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .executive-summary h2 {
+            color: #003D7A;
+            font-size: 24px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .executive-summary h2::before {
+            content: "📊";
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .executive-summary p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #003D7A;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #003D7A;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .section {
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            color: #003D7A;
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #003D7A;
+            font-weight: 600;
+        }
+        
+        .report-card {
+            background-color: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .report-card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border-color: #003D7A;
+        }
+        
+        .report-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .report-icon {
+            font-size: 36px;
+            margin-right: 15px;
+        }
+        
+        .report-title-container h3 {
+            color: #003D7A;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .report-subtitle {
+            color: #666;
+            font-size: 13px;
+            font-style: italic;
+        }
+        
+        .report-details {
+            margin-top: 15px;
+        }
+        
+        .detail-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #003D7A;
+            min-width: 150px;
+        }
+        
+        .detail-value {
+            color: #555;
+            flex: 1;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+            color: #555;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .config-table thead {
+            background: linear-gradient(135deg, #003D7A 0%, #0056A3 100%);
+            color: white;
+        }
+        
+        .config-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .config-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        
+        .config-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .config-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-left: 5px solid #FF9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .highlight-box h4 {
+            color: #E65100;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .highlight-box ul {
+            margin-left: 20px;
+        }
+        
+        .highlight-box li {
+            color: #555;
+            margin: 8px 0;
+        }
+        
+        .footer {
+            background-color: #f9f9f9;
+            padding: 30px;
+            text-align: center;
+            border-top: 3px solid #003D7A;
+        }
+        
+        .footer-logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #003D7A;
+            margin-bottom: 10px;
+        }
+        
+        .footer-info {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+        
+        .badge-warning {
+            background-color: #FFF3E0;
+            color: #E65100;
+        }
+        
+        .badge-info {
+            background-color: #E3F2FD;
+            color: #1565C0;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔔 Sistema de Notificaciones - Robot AD</h1>
+            <div class="subtitle">Resumen Ejecutivo de Reportes de Sincronización</div>
+            <div class="subtitle">Universidad Estatal a Distancia (UNED)</div>
+            <div class="date">Dirección de Tecnologías de Información y Comunicaciones | 13 de marzo de 2026</div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Executive Summary -->
+            <div class="executive-summary">
+                <h2>Resumen Ejecutivo</h2>
+                <p><strong>El Sistema Robot de Sincronización de Active Directory implementa un sistema completo y automatizado de notificaciones por correo electrónico</strong> que consta de <strong>5 tipos principales de reportes</strong>, diseñados para mantener informados a los analistas de TI y a los usuarios finales sobre el estado de las cuentas de Active Directory y el proceso de sincronización.</p>
+                <p>Este sistema garantiza la <strong>comunicación proactiva</strong> sobre vencimientos de cuentas, estadísticas del proceso y detección de cuentas deshabilitadas, permitiendo una gestión eficiente y oportuna del directorio activo institucional.</p>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Tipos de Reportes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Automatizado</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Niveles de Urgencia</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Días de Anticipación</div>
+                </div>
+            </div>
+
+            <!-- Reports Section -->
+            <div class="section">
+                <h2 class="section-title">📋 Reportes Implementados</h2>
+
+                <!-- Report 1 -->
+                <div class="report-card">
+                    <div class="report-header">
+                        <div class="report-icon">🚀</div>
+                        <div class="report-title-container">
+                            <h3>1. Notificación de Inicio de Proceso</h3>
+                            <div class="report-subtitle">Destinatario: Analista | Template: TemplateNotificacionInicio.html</div>
+                        </div>
+                    </div>
+                    <div class="report-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Propósito:</div>
+                            <div class="detail-value">Informar al analista que el proceso de sincronización ha iniciado correctamente</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Contenido:</div>
+                            <div class="detail-value">Fecha/hora de inicio, confirmación de ejecución, información del sistema</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Configuración:</div>
+                            <div class="detail-value">
+                                <span class="badge badge-info">NotificarInicioProceso: True</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report 2 -->
+                <div class="report-card">
+                    <div class="report-header">
+                        <div class="report-icon">📊</div>
+                        <div class="report-title-container">
+                            <h3>2. Notificación de Finalización con Estadísticas</h3>
+                            <div class="report-subtitle">Destinatario: Analista | Template: TemplateNotificacionFinalizacion.html</div>
+                        </div>
+                    </div>
+                    <div class="report-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Propósito:</div>
+                            <div class="detail-value">Reporte completo con estadísticas detalladas del proceso completado</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Contenido:</div>
+                            <div class="detail-value">
+                                <ul class="feature-list" style="margin-top: 10px;">
+                                    <li>Estadísticas completas: Procesados, errores, porcentajes de éxito</li>
+                                    <li>Estado de vigencia: Cuentas expiradas, por expirar y vigentes</li>
+                                    <li>Tabla detallada con funcionarios con incidencias</li>
+                                    <li>Datos de auditoría: Usuario, IP, equipo, sistema</li>
+                                    <li>Archivos LOG comprimidos en ZIP adjuntos</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Características:</div>
+                            <div class="detail-value">
+                                <span class="badge badge-success">Gráficos visuales</span>
+                                <span class="badge badge-info">Archivos adjuntos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report 3 -->
+                <div class="report-card">
+                    <div class="report-header">
+                        <div class="report-icon">👤</div>
+                        <div class="report-title-container">
+                            <h3>3. Notificación Individual de Vigencia de Cuenta</h3>
+                            <div class="report-subtitle">Destinatarios: Usuarios finales | Template: TemplateNotificacionIndividualCuenta.html</div>
+                        </div>
+                    </div>
+                    <div class="report-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Propósito:</div>
+                            <div class="detail-value">Notificar a cada funcionario que su cuenta AD está próxima a expirar</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Personalización:</div>
+                            <div class="detail-value">
+                                <ul class="feature-list" style="margin-top: 10px;">
+                                    <li>Nombre completo del funcionario</li>
+                                    <li>Usuario de Active Directory</li>
+                                    <li>Fecha exacta de expiración y días restantes</li>
+                                    <li>Nivel de urgencia dinámico: URGENTE (≤7 días) | IMPORTANTE (>7 días)</li>
+                                    <li>Instrucciones detalladas para renovar contraseña</li>
+                                    <li>Enlaces a portales de autoservicio</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Criterio de envío:</div>
+                            <div class="detail-value">
+                                <span class="badge badge-warning">Cuentas que expiran en ≤ 30 días (configurable)</span>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Configuración:</div>
+                            <div class="detail-value">
+                                <span class="badge badge-info">NotificarUsuariosIndividualmente: True</span>
+                                <span class="badge badge-info">DiasAvisoCuentaExpira: 30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report 4 -->
+                <div class="report-card">
+                    <div class="report-header">
+                        <div class="report-icon">📈</div>
+                        <div class="report-title-container">
+                            <h3>4. Reporte Consolidado de Vigencia de Cuentas</h3>
+                            <div class="report-subtitle">Destinatario: Analista | Template: TemplateConsolidadoVigencia.html</div>
+                        </div>
+                    </div>
+                    <div class="report-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Propósito:</div>
+                            <div class="detail-value">Resumen consolidado de todos los funcionarios con problemas de vigencia</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Contenido:</div>
+                            <div class="detail-value">
+                                <ul class="feature-list" style="margin-top: 10px;">
+                                    <li>Estadísticas: Total afectados, expiradas, por expirar</li>
+                                    <li>Tabla detallada con identificación, nombre, usuario AD, estado</li>
+                                    <li>Fecha de expiración y días restantes de cada cuenta</li>
+                                    <li>Códigos de color por nivel de criticidad</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Configuración:</div>
+                            <div class="detail-value">
+                                <span class="badge badge-info">EnviarConsolidadoVigencia: True</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report 5 -->
+                <div class="report-card">
+                    <div class="report-header">
+                        <div class="report-icon">🔒</div>
+                        <div class="report-title-container">
+                            <h3>5. Reporte de Cuentas Deshabilitadas</h3>
+                            <div class="report-subtitle">Destinatario: Analista | Template: TemplateReporteCuentasDeshabilitadas.html</div>
+                        </div>
+                    </div>
+                    <div class="report-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Propósito:</div>
+                            <div class="detail-value">Informar sobre cuentas AD deshabilitadas excluidas del proceso de sincronización</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Contenido:</div>
+                            <div class="detail-value">
+                                <ul class="feature-list" style="margin-top: 10px;">
+                                    <li>Total de cuentas deshabilitadas detectadas</li>
+                                    <li>Tabla con: Identificación, nombre, usuario AD, programa, estado</li>
+                                    <li>Mensaje de acción recomendada (si hay >10 cuentas)</li>
+                                    <li>Template inline de respaldo para mayor robustez</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Configuración:</div>
+                            <div class="detail-value">
+                                <span class="badge badge-warning">NotificarCuentasDeshabilitadas: False (por defecto)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="section">
+                <h2 class="section-title">✨ Características Destacadas del Sistema</h2>
+                
+                <div class="highlight-box">
+                    <h4>🎨 Diseño y Presentación</h4>
+                    <ul>
+                        <li><strong>Diseño responsive:</strong> Compatible con todos los clientes de correo electrónico</li>
+                        <li><strong>Colores institucionales UNED:</strong> #003D7A (azul principal)</li>
+                        <li><strong>Sistema de tokens:</strong> Reemplazo dinámico de contenido {{token}}</li>
+                        <li><strong>Iconos visuales:</strong> Emoji para mejor comprensión 📊 🔐 ⚠️ ✅</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box" style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-left-color: #4CAF50;">
+                    <h4 style="color: #1B5E20;">⚙️ Configuración y Flexibilidad</h4>
+                    <ul>
+                        <li><strong>Sistema modular:</strong> Cada notificación puede activarse/desactivarse independientemente</li>
+                        <li><strong>Altamente configurable:</strong> Todos los parámetros en App.config</li>
+                        <li><strong>Personalización dinámica:</strong> Correos se adaptan según urgencia</li>
+                        <li><strong>Escalabilidad:</strong> Preparado para grandes volúmenes de notificaciones</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box" style="background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); border-left-color: #9C27B0;">
+                    <h4 style="color: #4A148C;">🔐 Seguridad y Trazabilidad</h4>
+                    <ul>
+                        <li><strong>SMTP con SSL/TLS:</strong> Conexión segura con Office 365</li>
+                        <li><strong>Registro completo:</strong> Todas las notificaciones se registran en logs</li>
+                        <li><strong>Datos de auditoría:</strong> Usuario, IP, equipo incluidos en reportes</li>
+                        <li><strong>Robustez:</strong> Manejo de errores y templates de respaldo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Configuration Table -->
+            <div class="section">
+                <h2 class="section-title">⚙️ Parámetros Principales de Configuración</h2>
+                
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Parámetro</th>
+                            <th>Descripción</th>
+                            <th>Valor por Defecto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>NotificarInicioProceso</strong></td>
+                            <td>Activa notificación de inicio al analista</td>
+                            <td><span class="badge badge-success">True</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>NotificarUsuariosIndividualmente</strong></td>
+                            <td>Envía correos individuales a funcionarios</td>
+                            <td><span class="badge badge-success">True</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>DiasAvisoCuentaExpira</strong></td>
+                            <td>Días de anticipación para notificar vencimiento</td>
+                            <td><span class="badge badge-info">30 días</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EnviarConsolidadoVigencia</strong></td>
+                            <td>Activa reporte consolidado al analista</td>
+                            <td><span class="badge badge-success">True</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>NotificarCuentasDeshabilitadas</strong></td>
+                            <td>Activa reporte de cuentas deshabilitadas</td>
+                            <td><span class="badge badge-warning">False</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>DominioCorreo</strong></td>
+                            <td>Dominio para correos de funcionarios</td>
+                            <td>uned.ac.cr</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ServerSmtp</strong></td>
+                            <td>Servidor SMTP para envío de correos</td>
+                            <td>smtp.office365.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Technical Details -->
+            <div class="section">
+                <h2 class="section-title">💻 Detalles Técnicos</h2>
+                
+                <div class="report-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Archivos Templates:</div>
+                        <div class="detail-value">5 archivos HTML en <code>WAppSistRobot\Templates\</code></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Código Fuente:</div>
+                        <div class="detail-value"><code>FormPrincipal.vb</code> (líneas 1477-4338) y <code>Utilities\TemplateLoader.vb</code></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Funciones Principales:</div>
+                        <div class="detail-value">
+                            <ul class="feature-list" style="margin-top: 10px;">
+                                <li>EnviarNotificacionInicio() - Línea 3808</li>
+                                <li>EnviarNotificacionFinalizacion() - Línea 3867</li>
+                                <li>EnviarNotificacionesEstadoCuentas() - Línea 3988</li>
+                                <li>EnviarNotificacionCuentasDeshabilitadas() - Línea 4250</li>
+                                <li>GenerarReporteEstadisticasHTML() - Línea 1480</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Configuración:</div>
+                        <div class="detail-value"><code>App.config</code> - Configuración centralizada de todos los parámetros</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benefits -->
+            <div class="section">
+                <h2 class="section-title">🎯 Beneficios para la Organización</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div class="report-card" style="border-left: 4px solid #4CAF50;">
+                        <h4 style="color: #2E7D32; margin-bottom: 15px;">✅ Gestión Proactiva</h4>
+                        <p style="color: #555;">Los usuarios reciben notificaciones antes de que sus cuentas expiren, evitando interrupciones en el servicio.</p>
+                    </div>
+                    
+                    <div class="report-card" style="border-left: 4px solid #2196F3;">
+                        <h4 style="color: #1565C0; margin-bottom: 15px;">📊 Visibilidad Completa</h4>
+                        <p style="color: #555;">Los analistas tienen información detallada y en tiempo real del estado de todas las cuentas.</p>
+                    </div>
+                    
+                    <div class="report-card" style="border-left: 4px solid #FF9800;">
+                        <h4 style="color: #E65100; margin-bottom: 15px;">⚡ Automatización Total</h4>
+                        <p style="color: #555;">Eliminación de tareas manuales de notificación, ahorrando tiempo y reduciendo errores.</p>
+                    </div>
+                    
+                    <div class="report-card" style="border-left: 4px solid #9C27B0;">
+                        <h4 style="color: #6A1B9A; margin-bottom: 15px;">🔐 Cumplimiento</h4>
+                        <p style="color: #555;">Trazabilidad completa y registro de todas las notificaciones para auditorías.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-logo">🤖 Sistema Robot - Sincronización Active Directory</div>
+            <div class="footer-info">
+                <strong>Universidad Estatal a Distancia (UNED)</strong><br>
+                Dirección de Tecnologías de Información y Comunicaciones<br>
+                Documento generado automáticamente el 13 de marzo de 2026<br>
+                <br>
+                <em>Para más información o configuración del sistema, contactar con el equipo de desarrollo DTIC</em>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
