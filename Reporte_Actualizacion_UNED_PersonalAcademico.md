@@ -139,6 +139,21 @@ Total subtareas detalladas: **26**.
 | EP-01 | Medio | Medio | Medio | Bajo | Alta | P2 importante |
 | EP-08 | Medio | Bajo | Bajo | Bajo | Baja | P3 recomendable |
 
+### Costo estimado en horas de tareas criticas
+
+La siguiente tabla separa las epicas clasificadas como **P1 critica**, indicando el costo estimado en horas hombre para su ejecucion manual, sin intervencion de inteligencia artificial.
+
+| Epica | Nombre de la epica | Impacto funcional | Impacto tecnico | Riesgo operativo | Esfuerzo | Urgencia | Prioridad | Horas minimas | Horas maximas | Perfil principal |
+|---|---|---|---|---|---|---|---|---:|---:|---|
+| EP-02 | Actualizacion .NET y NuGet | Alto | Alto | Alto | Alto | Alta | P1 critica | 120 | 220 | Desarrollador senior .NET |
+| EP-03 | Seguridad y autenticacion | Alto | Alto | Alto | Medio | Alta | P1 critica | 80 | 140 | Desarrollador senior / DevOps |
+| EP-07 | Pruebas | Alto | Medio | Alto | Alto | Alta | P1 critica | 160 | 290 | QA / Desarrollador .NET |
+
+| Indicador | Horas |
+|---|---:|
+| Total minimo tareas criticas | 360 |
+| Total maximo tareas criticas | 650 |
+
 ## 9. Riesgos del proyecto
 
 | Riesgo | Causa probable | Impacto | Probabilidad | Mitigacion |
@@ -167,7 +182,7 @@ Informacion faltante que afecta la estimacion: version real de IIS/runtime produ
 | Total minimo estimado | 876 horas |
 | Total maximo estimado | 1.542 horas |
 | Perfil mas requerido | Desarrollador senior .NET / Arquitecto .NET |
-| Nivel general de riesgo | Alto / Critico por seguridad y EOL |
+| Nivel general de riesgo | Alto / Critico por seguridad y EOL (End of Life)|
 | Recomendacion final | Modernizacion controlada, iniciando por seguridad y framework |
 | Orden recomendado | EP-01, EP-03, EP-02, EP-04, EP-06, EP-05, EP-07, EP-09, EP-10, EP-08 |
 
