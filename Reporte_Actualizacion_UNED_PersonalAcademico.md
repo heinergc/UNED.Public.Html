@@ -229,101 +229,108 @@ Informacion faltante que afecta la estimacion: version real de IIS/runtime produ
 
 ## 12. Cronograma tipo Gantt para EP-03, EP-02 y EP-07
 
-Este cronograma se plantea desde la experiencia de un programador senior .NET que conoce el codigo, las capas MVC/API/BL/DAL/EL, los riesgos de migrar desde `netcoreapp2.2`, el manejo de paquetes NuGet, la configuracion de seguridad y la necesidad de pruebas de regresion. La estimacion usa horas efectivas de trabajo tecnico, no incluye tiempos administrativos externos ni esperas por aprobaciones institucionales.
+Este cronograma se ajusta a la jornada indicada por el programador: **8,5 horas por dia, 5 dias por semana**, para una capacidad semanal de **42,5 horas**. La planificacion se calcula como trabajo principalmente ejecutado por una persona programadora, con apoyo puntual de DevOps, QA, DBA y responsables de integraciones cuando sea necesario.
 
-Periodo propuesto: lunes 2026-06-08 al viernes 2026-08-14.  
-Duracion total: 10 semanas.  
-Jornada de referencia: 40 horas semanales de programador, con apoyo puntual de DevOps, QA, DBA y responsables de integraciones.  
-Esfuerzo total estimado para estas epicas, sumando las tareas del Gantt: **472 a 874 horas**.
+Periodo propuesto: lunes 2026-06-08 al viernes 2026-09-25.  
+Duracion total: 16 semanas.  
+Capacidad semanal: 42,5 horas.  
+Capacidad total disponible: 680 horas.  
+Esfuerzo planificado: **673 horas**.  
+Reserva tecnica aproximada: **7 horas**.
 
 ### Resumen de esfuerzo por epica
 
-| Epica | Nombre | Horas minimas | Horas maximas | Participacion principal |
-|---|---|---:|---:|---|
-| EP-03 | Seguridad y autenticacion | 88 | 152 | Programador senior .NET / DevOps |
-| EP-02 | Actualizacion .NET y NuGet | 160 | 300 | Programador senior .NET |
-| EP-07 | Pruebas unitarias y funcionales | 224 | 422 | Programador .NET / QA |
-| **Total** | **Epicas criticas seleccionadas** | **472** | **874** | **Equipo tecnico** |
+| Epica | Nombre | Horas planificadas | Semanas principales | Resultado esperado |
+|---|---|---:|---|---|
+| EP-03 | Seguridad y autenticacion | 124 | S1 a S5 | Secretos saneados, credenciales rotadas y reglas de acceso revisadas. |
+| EP-02 | Actualizacion .NET y NuGet | 268 | S4 a S10 | Solucion migrada, paquetes actualizados, build estable y dependencias documentadas. |
+| EP-07 | Pruebas unitarias y funcionales | 281 | S1 a S16 | Plan QA, casos, pruebas unitarias, regresion, defectos corregidos y UAT. |
+| **Total** | **EP-03, EP-02 y EP-07** | **673** | **16 semanas** | **Version candidata validada tecnicamente.** |
+
+### Semanas del cronograma
+
+| Semana | Fechas | Capacidad |
+|---|---|---:|
+| S1 | 2026-06-08 al 2026-06-12 | 42,5 h |
+| S2 | 2026-06-15 al 2026-06-19 | 42,5 h |
+| S3 | 2026-06-22 al 2026-06-26 | 42,5 h |
+| S4 | 2026-06-29 al 2026-07-03 | 42,5 h |
+| S5 | 2026-07-06 al 2026-07-10 | 42,5 h |
+| S6 | 2026-07-13 al 2026-07-17 | 42,5 h |
+| S7 | 2026-07-20 al 2026-07-24 | 42,5 h |
+| S8 | 2026-07-27 al 2026-07-31 | 42,5 h |
+| S9 | 2026-08-03 al 2026-08-07 | 42,5 h |
+| S10 | 2026-08-10 al 2026-08-14 | 42,5 h |
+| S11 | 2026-08-17 al 2026-08-21 | 42,5 h |
+| S12 | 2026-08-24 al 2026-08-28 | 42,5 h |
+| S13 | 2026-08-31 al 2026-09-04 | 42,5 h |
+| S14 | 2026-09-07 al 2026-09-11 | 42,5 h |
+| S15 | 2026-09-14 al 2026-09-18 | 42,5 h |
+| S16 | 2026-09-21 al 2026-09-25 | 42,5 h |
 
 ### Cronograma tipo Gantt por tarea
 
-Leyenda: `X` = semana con trabajo planificado.  
-S1: 2026-06-08 al 2026-06-12.  
-S2: 2026-06-15 al 2026-06-19.  
-S3: 2026-06-22 al 2026-06-26.  
-S4: 2026-06-29 al 2026-07-03.  
-S5: 2026-07-06 al 2026-07-10.  
-S6: 2026-07-13 al 2026-07-17.  
-S7: 2026-07-20 al 2026-07-24.  
-S8: 2026-07-27 al 2026-07-31.  
-S9: 2026-08-03 al 2026-08-07.  
-S10: 2026-08-10 al 2026-08-14.
+Leyenda: `X` = semana con trabajo planificado.
 
-| ID | Epica | Tarea | Responsable | Inicio | Fin | Horas min | Horas max | Dependencia | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 |
-|---|---|---|---|---|---|---:|---:|---|---|---|---|---|---|---|---|---|---|---|
-| T01 | EP-03 | Inventariar secretos, endpoints y configuraciones sensibles | Programador senior / DevOps | 2026-06-08 | 2026-06-12 | 8 | 16 | Codigo fuente y configuraciones | X |  |  |  |  |  |  |  |  |  |
-| T02 | EP-07 | Definir plan de pruebas criticas | Programador / QA | 2026-06-08 | 2026-06-13 | 16 | 24 | Inventario funcional | X |  |  |  |  |  |  |  |  |  |
-| T03 | EP-03 | Clasificar riesgos de seguridad por credencial e integracion | Programador senior | 2026-06-13 | 2026-06-19 | 8 | 12 | T01 |  | X |  |  |  |  |  |  |  |  |
-| T04 | EP-03 | Retirar secretos de `appsettings.json` y preparar variables de entorno | Programador senior / DevOps | 2026-06-15 | 2026-06-26 | 16 | 24 | T01 |  | X | X |  |  |  |  |  |  |  |
-| T05 | EP-03 | Coordinar y aplicar rotacion de credenciales expuestas | DevOps / Sistemas externos | 2026-06-16 | 2026-07-03 | 24 | 48 | T01, responsables externos |  | X | X | X |  |  |  |  |  |  |
-| T06 | EP-03 | Revisar roles, permisos, claims, JWT, sesion, AD y SAUR | Programador senior .NET | 2026-06-22 | 2026-07-03 | 20 | 32 | T04 |  |  | X | X |  |  |  |  |  |  |
-| T07 | EP-07 | Disenar casos de prueba de login, roles, JWT y expiracion | QA / Programador | 2026-06-22 | 2026-07-03 | 16 | 28 | T06 |  |  | X | X |  |  |  |  |  |  |
-| T08 | EP-03 | Ejecutar pruebas tecnicas de seguridad y ajustar configuracion | Programador senior / QA | 2026-06-29 | 2026-07-10 | 12 | 20 | T06, T07 |  |  |  | X | X |  |  |  |  |  |
-| T09 | EP-02 | Definir ruta de migracion de .NET Core 2.2 a version LTS | Programador senior .NET | 2026-06-22 | 2026-07-03 | 16 | 24 | Diagnostico tecnico |  |  | X | X |  |  |  |  |  |  |
-| T10 | EP-02 | Crear rama tecnica y actualizar paquetes NuGet vulnerables | Programador senior .NET | 2026-07-06 | 2026-07-17 | 24 | 48 | T09 |  |  |  |  | X | X |  |  |  |  |
-| T11 | EP-02 | Migrar proyectos MVC, API, BL, DAL, EL y UnitTests | Programador senior .NET | 2026-07-06 | 2026-07-24 | 40 | 80 | T09, T10 |  |  |  |  | X | X | X |  |  |  |
-| T12 | EP-02 | Corregir errores de compilacion y compatibilidad por migracion | Programador senior .NET | 2026-07-13 | 2026-07-31 | 32 | 60 | T11 |  |  |  |  |  | X | X | X |  |  |
-| T13 | EP-02 | Validar middleware, rutas MVC, API, sesiones, filtros y Swagger | Programador senior / QA tecnico | 2026-07-20 | 2026-07-31 | 24 | 40 | T12 |  |  |  |  |  |  | X | X |  |  |
-| T14 | EP-02 | Validar conexion Oracle e integraciones principales despues de migracion | Programador senior / DBA | 2026-07-27 | 2026-08-07 | 16 | 32 | T12 |  |  |  |  |  |  |  | X | X |  |
-| T15 | EP-02 | Actualizar documentacion tecnica de framework y dependencias | Programador senior | 2026-08-03 | 2026-08-14 | 8 | 16 | T13, T14 |  |  |  |  |  |  |  |  | X | X |
-| T16 | EP-07 | Disenar casos de prueba para expediente, catalogos, documentos y aprobaciones | QA / Programador | 2026-07-06 | 2026-07-17 | 24 | 40 | T02 |  |  |  |  | X | X |  |  |  |  |
-| T17 | EP-07 | Crear pruebas unitarias iniciales para servicios y logica critica | Programador .NET / QA tecnico | 2026-07-13 | 2026-07-31 | 40 | 80 | T10, T11 |  |  |  |  |  | X | X | X |  |  |
-| T18 | EP-07 | Preparar datos de prueba y checklist de regresion | QA / Programador | 2026-07-20 | 2026-07-31 | 16 | 30 | T16 |  |  |  |  |  |  | X | X |  |  |
-| T19 | EP-07 | Ejecutar regresion funcional completa en ambiente QA | QA / Programador | 2026-07-27 | 2026-08-07 | 48 | 90 | T13, T18 |  |  |  |  |  |  |  | X | X |  |
-| T20 | EP-07 | Registrar, priorizar y corregir defectos detectados | Programador senior / QA | 2026-08-03 | 2026-08-14 | 40 | 80 | T19 |  |  |  |  |  |  |  |  | X | X |
-| T21 | EP-07 | Reejecutar pruebas criticas y preparar evidencia UAT | QA / Programador | 2026-08-10 | 2026-08-14 | 16 | 32 | T20 |  |  |  |  |  |  |  |  |  | X |
-| T22 | EP-07 | Validacion final con usuarios clave | QA / Analista / Programador | 2026-08-10 | 2026-08-14 | 8 | 18 | T21 |  |  |  |  |  |  |  |  |  | X |
+| ID | Epica | Tarea | Horas | Inicio | Fin | Dependencia | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 | S14 | S15 | S16 |
+|---|---|---|---:|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| T01 | EP-03 | Inventariar secretos, endpoints y configuraciones sensibles | 12 | 2026-06-08 | 2026-06-12 | Codigo fuente y configuraciones | X |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| T02 | EP-07 | Definir plan de pruebas criticas | 20 | 2026-06-08 | 2026-06-12 | Inventario funcional | X |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| T03 | EP-03 | Clasificar riesgos de seguridad por credencial e integracion | 10 | 2026-06-08 | 2026-06-12 | T01 | X |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| T04 | EP-03 | Retirar secretos de `appsettings.json` y preparar variables de entorno | 20 | 2026-06-15 | 2026-06-19 | T01 |  | X |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| T05 | EP-03 | Coordinar y aplicar rotacion de credenciales expuestas | 36 | 2026-06-15 | 2026-06-26 | T01, responsables externos |  | X | X |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| T06 | EP-03 | Revisar roles, permisos, claims, JWT, sesion, AD y SAUR | 26 | 2026-06-22 | 2026-06-26 | T04 |  |  | X |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| T07 | EP-07 | Disenar casos de prueba de login, roles, JWT y expiracion | 22 | 2026-06-22 | 2026-07-03 | T06 |  |  | X | X |  |  |  |  |  |  |  |  |  |  |  |  |
+| T08 | EP-03 | Ejecutar pruebas tecnicas de seguridad y ajustar configuracion | 16 | 2026-06-29 | 2026-07-03 | T06, T07 |  |  |  | X |  |  |  |  |  |  |  |  |  |  |  |  |
+| T09 | EP-02 | Definir ruta de migracion de .NET Core 2.2 a version LTS | 20 | 2026-06-29 | 2026-07-10 | Diagnostico tecnico |  |  |  | X | X |  |  |  |  |  |  |  |  |  |  |  |
+| T10 | EP-02 | Crear rama tecnica y actualizar paquetes NuGet vulnerables | 36 | 2026-07-06 | 2026-07-17 | T09 |  |  |  |  | X | X |  |  |  |  |  |  |  |  |  |  |
+| T11 | EP-02 | Migrar proyectos MVC, API, BL, DAL, EL y UnitTests | 60 | 2026-07-13 | 2026-07-24 | T09, T10 |  |  |  |  |  | X | X |  |  |  |  |  |  |  |  |  |
+| T12 | EP-02 | Corregir errores de compilacion y compatibilidad por migracion | 46 | 2026-07-20 | 2026-07-31 | T11 |  |  |  |  |  |  | X | X |  |  |  |  |  |  |  |  |
+| T13 | EP-02 | Validar middleware, rutas MVC, API, sesiones, filtros y Swagger | 32 | 2026-07-27 | 2026-08-07 | T12 |  |  |  |  |  |  |  | X | X |  |  |  |  |  |  |  |
+| T14 | EP-02 | Validar conexion Oracle e integraciones principales despues de migracion | 24 | 2026-08-03 | 2026-08-07 | T12 |  |  |  |  |  |  |  |  | X |  |  |  |  |  |  |  |
+| T15 | EP-02 | Actualizar documentacion tecnica de framework y dependencias | 12 | 2026-08-03 | 2026-08-14 | T13, T14 |  |  |  |  |  |  |  |  | X | X |  |  |  |  |  |  |
+| T16 | EP-07 | Disenar casos de prueba para expediente, catalogos, documentos y aprobaciones | 32 | 2026-08-10 | 2026-08-14 | T02 |  |  |  |  |  |  |  |  |  | X |  |  |  |  |  |  |
+| T17 | EP-07 | Crear pruebas unitarias iniciales para servicios y logica critica | 60 | 2026-08-17 | 2026-08-28 | T10, T11 |  |  |  |  |  |  |  |  |  |  | X | X |  |  |  |  |
+| T18 | EP-07 | Preparar datos de prueba y checklist de regresion | 23 | 2026-08-24 | 2026-08-28 | T16 |  |  |  |  |  |  |  |  |  |  |  | X |  |  |  |  |
+| T19 | EP-07 | Ejecutar regresion funcional completa en ambiente QA | 69 | 2026-08-24 | 2026-09-11 | T13, T18 |  |  |  |  |  |  |  |  |  |  |  | X | X | X |  |  |
+| T20 | EP-07 | Registrar, priorizar y corregir defectos detectados | 60 | 2026-09-07 | 2026-09-18 | T19 |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X |  |
+| T21 | EP-07 | Reejecutar pruebas criticas y preparar evidencia UAT | 24 | 2026-09-14 | 2026-09-25 | T20 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X |
+| T22 | EP-07 | Validacion final con usuarios clave | 13 | 2026-09-21 | 2026-09-25 | T21 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | X |
 
-### Distribucion referencial de horas por semana
+### Carga semanal ajustada a 8,5 horas diarias
 
-Esta distribucion reparte proporcionalmente las horas de cada tarea entre las semanas donde aparece marcada con `X`. Sirve para visualizar carga de trabajo; la asignacion final debe ajustarse segun disponibilidad real del programador y apoyos externos.
-
-| Semana | Fechas | Horas minimas | Horas maximas | Enfoque principal |
-|---|---|---:|---:|---|
-| S1 | 2026-06-08 al 2026-06-12 | 24 | 40 | Inventario de seguridad y plan de pruebas |
-| S2 | 2026-06-15 al 2026-06-19 | 24 | 40 | Secretos, riesgos y rotacion inicial |
-| S3 | 2026-06-22 al 2026-06-26 | 42 | 70 | Configuracion segura, roles y ruta .NET |
-| S4 | 2026-06-29 al 2026-07-03 | 40 | 68 | Seguridad, casos de login y cierre de ruta tecnica |
-| S5 | 2026-07-06 al 2026-07-10 | 44 | 81 | Paquetes NuGet, migracion inicial y pruebas funcionales |
-| S6 | 2026-07-13 al 2026-07-17 | 62 | 118 | Migracion, compilacion y pruebas unitarias |
-| S7 | 2026-07-20 al 2026-07-24 | 58 | 109 | Compatibilidad, middleware y preparacion de regresion |
-| S8 | 2026-07-27 al 2026-07-31 | 76 | 143 | Build estable, integraciones y regresion funcional |
-| S9 | 2026-08-03 al 2026-08-07 | 56 | 109 | Defectos, Oracle, documentacion y regresion |
-| S10 | 2026-08-10 al 2026-08-14 | 48 | 98 | Cierre de defectos, reejecucion, evidencia y UAT |
-| **Total** | **Periodo completo** | **472** | **874** | **EP-03, EP-02 y EP-07** |
-
-Nota: si el trabajo lo realiza una sola persona, se recomienda extender el cronograma o reducir paralelismo, porque varias semanas superan las 40 horas efectivas.
-
-### Dependencias principales
-
-| Dependencia | Afecta | Observacion |
-|---|---|---|
-| Acceso a repositorio y configuraciones actuales | EP-03, EP-02, EP-07 | Necesario desde la semana 1. |
-| Responsables de Oracle, SMTP, SAUR, AMI y AD | EP-03, EP-02 | La rotacion y validacion de credenciales depende de terceros. |
-| Ambiente QA funcional | EP-07 | Debe estar disponible antes de la semana 8 para ejecutar regresion completa. |
-| Version .NET objetivo aprobada | EP-02 | Debe definirse antes de migrar proyectos. |
-| Datos de prueba representativos | EP-07 | Necesarios para expediente, catalogos, documentos y aprobaciones. |
+| Semana | Fechas | Horas asignadas | Capacidad semanal | Diferencia | Enfoque |
+|---|---|---:|---:|---:|---|
+| S1 | 2026-06-08 al 2026-06-12 | 42,0 | 42,5 | 0,5 | Inventario de seguridad y plan QA |
+| S2 | 2026-06-15 al 2026-06-19 | 42,5 | 42,5 | 0,0 | Secretos y rotacion inicial |
+| S3 | 2026-06-22 al 2026-06-26 | 42,5 | 42,5 | 0,0 | Roles, permisos y casos de seguridad |
+| S4 | 2026-06-29 al 2026-07-03 | 42,5 | 42,5 | 0,0 | Seguridad tecnica y ruta .NET |
+| S5 | 2026-07-06 al 2026-07-10 | 42,5 | 42,5 | 0,0 | Ruta .NET y paquetes NuGet |
+| S6 | 2026-07-13 al 2026-07-17 | 42,5 | 42,5 | 0,0 | Paquetes y migracion inicial |
+| S7 | 2026-07-20 al 2026-07-24 | 42,5 | 42,5 | 0,0 | Migracion y errores de compilacion |
+| S8 | 2026-07-27 al 2026-07-31 | 42,5 | 42,5 | 0,0 | Compatibilidad y build |
+| S9 | 2026-08-03 al 2026-08-07 | 42,5 | 42,5 | 0,0 | Middleware, Oracle e integraciones |
+| S10 | 2026-08-10 al 2026-08-14 | 42,5 | 42,5 | 0,0 | Documentacion tecnica y casos funcionales |
+| S11 | 2026-08-17 al 2026-08-21 | 42,5 | 42,5 | 0,0 | Pruebas unitarias |
+| S12 | 2026-08-24 al 2026-08-28 | 42,5 | 42,5 | 0,0 | Datos de prueba e inicio de regresion |
+| S13 | 2026-08-31 al 2026-09-04 | 42,5 | 42,5 | 0,0 | Regresion funcional |
+| S14 | 2026-09-07 al 2026-09-11 | 42,5 | 42,5 | 0,0 | Regresion y defectos |
+| S15 | 2026-09-14 al 2026-09-18 | 42,5 | 42,5 | 0,0 | Correccion de defectos y reejecucion |
+| S16 | 2026-09-21 al 2026-09-25 | 36,5 | 42,5 | 6,0 | Evidencia UAT, validacion final y reserva |
+| **Total** | **Periodo completo** | **673,0** | **680,0** | **7,0** | **EP-03, EP-02 y EP-07** |
 
 ### Hitos de control
 
 | Fecha objetivo | Hito | Evidencia esperada |
 |---|---|---|
-| 2026-06-19 | Inventario de seguridad y plan QA listos | Matriz de secretos, matriz de riesgos y plan de pruebas criticas |
-| 2026-07-03 | Seguridad base saneada y ruta .NET aprobada | Configuracion sin secretos activos, matriz de roles y documento de migracion |
-| 2026-07-17 | Paquetes y migracion inicial en avance verificable | Rama tecnica, paquetes actualizados y bitacora de errores de compatibilidad |
-| 2026-07-31 | Build estable y regresion en ejecucion | `dotnet build` con 0 errores y reporte inicial de pruebas |
-| 2026-08-14 | Cierre tecnico y funcional de version candidata | Evidencia UAT, defectos criticos cerrados o con plan aceptado |
+| 2026-06-12 | Inventario de seguridad y plan QA inicial | Matriz de secretos, riesgos iniciales y plan de pruebas criticas |
+| 2026-07-03 | Seguridad base revisada | Configuracion saneada, roles revisados y casos de seguridad definidos |
+| 2026-07-17 | Paquetes NuGet y migracion inicial en ejecucion | Rama tecnica, paquetes actualizados y bitacora de compatibilidad |
+| 2026-08-07 | Migracion tecnica estabilizada | Build estable, validacion MVC/API, Oracle e integraciones principales |
+| 2026-08-28 | Pruebas unitarias y datos de regresion listos | Suite inicial, datos de prueba y checklist de regresion |
+| 2026-09-18 | Defectos criticos corregidos | Registro de defectos, correcciones y reejecucion parcial |
+| 2026-09-25 | Version candidata validada | Evidencia UAT y cierre tecnico de EP-03, EP-02 y EP-07 |
 
 ### Criterio profesional de estimacion
 
-Las horas se estiman considerando la experiencia de programador en sistemas ASP.NET Core legacy: lectura de codigo existente, analisis de dependencias, ajustes de configuracion, migracion gradual, correccion de incompatibilidades, ejecucion de pruebas y atencion de defectos. La mayor carga se concentra en EP-02 y EP-07 porque la migracion de framework puede generar errores no visibles hasta compilar, levantar MVC/API y ejecutar flujos completos con Oracle e integraciones externas.
+Las horas se estiman con base en una jornada real de programador de 8,5 horas diarias. El cronograma evita sobrecargar semanas por encima de 42,5 horas y por eso extiende la planificacion hasta 16 semanas. La mayor carga se concentra en EP-02 y EP-07, porque la migracion desde `.NET Core 2.2` puede generar errores de compatibilidad que solo aparecen al compilar, ejecutar MVC/API, validar Oracle y correr regresion funcional completa.
