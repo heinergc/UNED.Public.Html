@@ -227,65 +227,103 @@ Informacion faltante que afecta la estimacion: version real de IIS/runtime produ
 - `UNED.PersonalAcademico/appsettings.json` y `UNED.PersonalAcademico.API/appsettings.json`: configuraciones con secretos y endpoints.
 - `dotnet build UNED.PersonalAcademico.sln --no-restore`: 0 errores, 114 advertencias.
 
-## 12. Cronograma de trabajo propuesto para EP-03, EP-02 y EP-07
+## 12. Cronograma tipo Gantt para EP-03, EP-02 y EP-07
 
-Este cronograma se basa en la experiencia tecnica levantada en el analisis: solucion ASP.NET Core legacy en `netcoreapp2.2`, dependencias vulnerables, secretos expuestos en configuracion, baja cobertura de pruebas y alta necesidad de regresion funcional. La propuesta organiza las epicas criticas en 5 sprints de 2 semanas, iniciando el lunes 2026-06-08 y finalizando el viernes 2026-08-14.
+Este cronograma se plantea desde la experiencia de un programador senior .NET que conoce el codigo, las capas MVC/API/BL/DAL/EL, los riesgos de migrar desde `netcoreapp2.2`, el manejo de paquetes NuGet, la configuracion de seguridad y la necesidad de pruebas de regresion. La estimacion usa horas efectivas de trabajo tecnico, no incluye tiempos administrativos externos ni esperas por aprobaciones institucionales.
 
-### Supuestos del cronograma
+Periodo propuesto: lunes 2026-06-08 al viernes 2026-08-14.  
+Duracion total: 10 semanas.  
+Jornada de referencia: 40 horas semanales de programador, con apoyo puntual de DevOps, QA, DBA y responsables de integraciones.  
+Esfuerzo total estimado para estas epicas, sumando las tareas del Gantt: **472 a 874 horas**.
 
-- Equipo minimo recomendado: 1 desarrollador senior .NET, 1 DevOps o responsable tecnico de ambientes, 1 QA funcional/tecnico y apoyo puntual de DBA o responsables de integraciones.
-- Disponibilidad esperada: entre 30 y 40 horas semanales por perfil principal.
-- Se requiere acceso a ambiente QA, base de datos Oracle de pruebas, responsables de SAUR/AMI/AD/SMTP y usuarios clave para validacion.
-- Las actividades de EP-07 inician desde el primer sprint para acompanar la migracion, no solo al final.
-- La rotacion de credenciales depende de aprobaciones institucionales y puede ejecutarse en paralelo con ajustes tecnicos.
+### Resumen de esfuerzo por epica
 
-### Cronograma por sprint
+| Epica | Nombre | Horas minimas | Horas maximas | Participacion principal |
+|---|---|---:|---:|---|
+| EP-03 | Seguridad y autenticacion | 88 | 152 | Programador senior .NET / DevOps |
+| EP-02 | Actualizacion .NET y NuGet | 160 | 300 | Programador senior .NET |
+| EP-07 | Pruebas unitarias y funcionales | 224 | 422 | Programador .NET / QA |
+| **Total** | **Epicas criticas seleccionadas** | **472** | **874** | **Equipo tecnico** |
 
-| Sprint | Fechas | Epica principal | Actividades | Entregables | Criterio de cierre |
-|---|---|---|---|---|---|
-| Sprint 1 | 2026-06-08 al 2026-06-19 | EP-03 / EP-07 | Inventario de secretos, configuraciones sensibles, endpoints e integraciones. Definicion del plan de pruebas criticas. Identificacion de flujos de login, roles, sesion, JWT, expediente, catalogos y aprobaciones. | Matriz de secretos sin exponer valores, matriz inicial de riesgos de seguridad, plan QA critico. | Secretos e integraciones identificados; plan de pruebas aprobado por lider tecnico/funcional. |
-| Sprint 2 | 2026-06-22 al 2026-07-03 | EP-03 / EP-02 / EP-07 | Retiro de secretos de `appsettings.json`, definicion de variables de entorno o mecanismo seguro, inicio de rotacion de credenciales, revision de roles/autenticacion, definicion de ruta de migracion .NET y diseno de casos de prueba de seguridad. | Configuracion saneada en rama controlada, matriz de roles y permisos, ruta de migracion .NET aprobada, casos de prueba de seguridad. | Repositorio sin secretos activos; estrategia .NET objetivo documentada; casos de seguridad listos para ejecucion. |
-| Sprint 3 | 2026-07-06 al 2026-07-17 | EP-02 / EP-07 | Actualizacion de paquetes NuGet vulnerables, migracion inicial de proyectos MVC, API, BL, DAL, EL y UnitTests a version soportada, correccion de errores iniciales de compatibilidad, diseno de casos para expediente y catalogos, inicio de pruebas unitarias criticas. | Rama migrada inicial, paquetes actualizados, bitacora de incompatibilidades, casos funcionales prioritarios, suite unitaria inicial. | La solucion restaura paquetes y avanza hacia compilacion controlada; casos funcionales principales estan definidos. |
-| Sprint 4 | 2026-07-20 al 2026-07-31 | EP-02 / EP-07 | Correccion de errores de compilacion, validacion de middleware, sesiones, rutas MVC, API, Swagger, Oracle e integraciones principales. Ejecucion de regresion funcional en QA sobre flujos criticos. | Solucion compilable, evidencia tecnica de compatibilidad, reporte de regresion funcional, defectos priorizados. | `dotnet build` finaliza con 0 errores; MVC/API responden en QA; defectos criticos quedan registrados y priorizados. |
-| Sprint 5 | 2026-08-03 al 2026-08-14 | EP-07 / EP-02 / EP-03 | Correccion de defectos detectados, reejecucion de pruebas criticas, validacion final de usuarios clave, cierre de documentacion tecnica de dependencias, seguridad y pruebas. | Defectos criticos corregidos o con plan aceptado, evidencia UAT, documento tecnico actualizado, acta o correo de aceptacion funcional. | Usuarios clave aprueban la version candidata; no quedan defectos criticos abiertos sin plan de mitigacion. |
+### Cronograma tipo Gantt por tarea
 
-### Vista por epica
+Leyenda: `X` = semana con trabajo planificado.  
+S1: 2026-06-08 al 2026-06-12.  
+S2: 2026-06-15 al 2026-06-19.  
+S3: 2026-06-22 al 2026-06-26.  
+S4: 2026-06-29 al 2026-07-03.  
+S5: 2026-07-06 al 2026-07-10.  
+S6: 2026-07-13 al 2026-07-17.  
+S7: 2026-07-20 al 2026-07-24.  
+S8: 2026-07-27 al 2026-07-31.  
+S9: 2026-08-03 al 2026-08-07.  
+S10: 2026-08-10 al 2026-08-14.
 
-| Epica | Duracion estimada | Inicio | Fin | Horas minimas | Horas maximas | Dependencias clave | Resultado esperado |
-|---|---:|---|---|---:|---:|---|---|
-| EP-03 Seguridad y autenticacion | 2 sprints principales, con seguimiento hasta cierre | 2026-06-08 | 2026-08-14 | 80 | 140 | Accesos a sistemas externos, responsables de credenciales, politica institucional de secretos | Secretos fuera del codigo, credenciales rotadas, roles y autenticacion documentados y probados. |
-| EP-02 Actualizacion .NET y NuGet | 3 sprints principales | 2026-06-22 | 2026-08-14 | 120 | 220 | Ruta de migracion aprobada, paquetes compatibles, ambiente QA | Solucion migrada a version soportada, paquetes vulnerables actualizados y build sin errores. |
-| EP-07 Pruebas | 5 sprints transversales | 2026-06-08 | 2026-08-14 | 160 | 290 | Mapa funcional, ambiente QA, datos de prueba, usuarios clave | Plan QA, casos de prueba, suite unitaria minima, regresion funcional y validacion UAT. |
+| ID | Epica | Tarea | Responsable | Inicio | Fin | Horas min | Horas max | Dependencia | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 |
+|---|---|---|---|---|---|---:|---:|---|---|---|---|---|---|---|---|---|---|---|
+| T01 | EP-03 | Inventariar secretos, endpoints y configuraciones sensibles | Programador senior / DevOps | 2026-06-08 | 2026-06-12 | 8 | 16 | Codigo fuente y configuraciones | X |  |  |  |  |  |  |  |  |  |
+| T02 | EP-07 | Definir plan de pruebas criticas | Programador / QA | 2026-06-08 | 2026-06-13 | 16 | 24 | Inventario funcional | X |  |  |  |  |  |  |  |  |  |
+| T03 | EP-03 | Clasificar riesgos de seguridad por credencial e integracion | Programador senior | 2026-06-13 | 2026-06-19 | 8 | 12 | T01 |  | X |  |  |  |  |  |  |  |  |
+| T04 | EP-03 | Retirar secretos de `appsettings.json` y preparar variables de entorno | Programador senior / DevOps | 2026-06-15 | 2026-06-26 | 16 | 24 | T01 |  | X | X |  |  |  |  |  |  |  |
+| T05 | EP-03 | Coordinar y aplicar rotacion de credenciales expuestas | DevOps / Sistemas externos | 2026-06-16 | 2026-07-03 | 24 | 48 | T01, responsables externos |  | X | X | X |  |  |  |  |  |  |
+| T06 | EP-03 | Revisar roles, permisos, claims, JWT, sesion, AD y SAUR | Programador senior .NET | 2026-06-22 | 2026-07-03 | 20 | 32 | T04 |  |  | X | X |  |  |  |  |  |  |
+| T07 | EP-07 | Disenar casos de prueba de login, roles, JWT y expiracion | QA / Programador | 2026-06-22 | 2026-07-03 | 16 | 28 | T06 |  |  | X | X |  |  |  |  |  |  |
+| T08 | EP-03 | Ejecutar pruebas tecnicas de seguridad y ajustar configuracion | Programador senior / QA | 2026-06-29 | 2026-07-10 | 12 | 20 | T06, T07 |  |  |  | X | X |  |  |  |  |  |
+| T09 | EP-02 | Definir ruta de migracion de .NET Core 2.2 a version LTS | Programador senior .NET | 2026-06-22 | 2026-07-03 | 16 | 24 | Diagnostico tecnico |  |  | X | X |  |  |  |  |  |  |
+| T10 | EP-02 | Crear rama tecnica y actualizar paquetes NuGet vulnerables | Programador senior .NET | 2026-07-06 | 2026-07-17 | 24 | 48 | T09 |  |  |  |  | X | X |  |  |  |  |
+| T11 | EP-02 | Migrar proyectos MVC, API, BL, DAL, EL y UnitTests | Programador senior .NET | 2026-07-06 | 2026-07-24 | 40 | 80 | T09, T10 |  |  |  |  | X | X | X |  |  |  |
+| T12 | EP-02 | Corregir errores de compilacion y compatibilidad por migracion | Programador senior .NET | 2026-07-13 | 2026-07-31 | 32 | 60 | T11 |  |  |  |  |  | X | X | X |  |  |
+| T13 | EP-02 | Validar middleware, rutas MVC, API, sesiones, filtros y Swagger | Programador senior / QA tecnico | 2026-07-20 | 2026-07-31 | 24 | 40 | T12 |  |  |  |  |  |  | X | X |  |  |
+| T14 | EP-02 | Validar conexion Oracle e integraciones principales despues de migracion | Programador senior / DBA | 2026-07-27 | 2026-08-07 | 16 | 32 | T12 |  |  |  |  |  |  |  | X | X |  |
+| T15 | EP-02 | Actualizar documentacion tecnica de framework y dependencias | Programador senior | 2026-08-03 | 2026-08-14 | 8 | 16 | T13, T14 |  |  |  |  |  |  |  |  | X | X |
+| T16 | EP-07 | Disenar casos de prueba para expediente, catalogos, documentos y aprobaciones | QA / Programador | 2026-07-06 | 2026-07-17 | 24 | 40 | T02 |  |  |  |  | X | X |  |  |  |  |
+| T17 | EP-07 | Crear pruebas unitarias iniciales para servicios y logica critica | Programador .NET / QA tecnico | 2026-07-13 | 2026-07-31 | 40 | 80 | T10, T11 |  |  |  |  |  | X | X | X |  |  |
+| T18 | EP-07 | Preparar datos de prueba y checklist de regresion | QA / Programador | 2026-07-20 | 2026-07-31 | 16 | 30 | T16 |  |  |  |  |  |  | X | X |  |  |
+| T19 | EP-07 | Ejecutar regresion funcional completa en ambiente QA | QA / Programador | 2026-07-27 | 2026-08-07 | 48 | 90 | T13, T18 |  |  |  |  |  |  |  | X | X |  |
+| T20 | EP-07 | Registrar, priorizar y corregir defectos detectados | Programador senior / QA | 2026-08-03 | 2026-08-14 | 40 | 80 | T19 |  |  |  |  |  |  |  |  | X | X |
+| T21 | EP-07 | Reejecutar pruebas criticas y preparar evidencia UAT | QA / Programador | 2026-08-10 | 2026-08-14 | 16 | 32 | T20 |  |  |  |  |  |  |  |  |  | X |
+| T22 | EP-07 | Validacion final con usuarios clave | QA / Analista / Programador | 2026-08-10 | 2026-08-14 | 8 | 18 | T21 |  |  |  |  |  |  |  |  |  | X |
+
+### Distribucion referencial de horas por semana
+
+Esta distribucion reparte proporcionalmente las horas de cada tarea entre las semanas donde aparece marcada con `X`. Sirve para visualizar carga de trabajo; la asignacion final debe ajustarse segun disponibilidad real del programador y apoyos externos.
+
+| Semana | Fechas | Horas minimas | Horas maximas | Enfoque principal |
+|---|---|---:|---:|---|
+| S1 | 2026-06-08 al 2026-06-12 | 24 | 40 | Inventario de seguridad y plan de pruebas |
+| S2 | 2026-06-15 al 2026-06-19 | 24 | 40 | Secretos, riesgos y rotacion inicial |
+| S3 | 2026-06-22 al 2026-06-26 | 42 | 70 | Configuracion segura, roles y ruta .NET |
+| S4 | 2026-06-29 al 2026-07-03 | 40 | 68 | Seguridad, casos de login y cierre de ruta tecnica |
+| S5 | 2026-07-06 al 2026-07-10 | 44 | 81 | Paquetes NuGet, migracion inicial y pruebas funcionales |
+| S6 | 2026-07-13 al 2026-07-17 | 62 | 118 | Migracion, compilacion y pruebas unitarias |
+| S7 | 2026-07-20 al 2026-07-24 | 58 | 109 | Compatibilidad, middleware y preparacion de regresion |
+| S8 | 2026-07-27 al 2026-07-31 | 76 | 143 | Build estable, integraciones y regresion funcional |
+| S9 | 2026-08-03 al 2026-08-07 | 56 | 109 | Defectos, Oracle, documentacion y regresion |
+| S10 | 2026-08-10 al 2026-08-14 | 48 | 98 | Cierre de defectos, reejecucion, evidencia y UAT |
+| **Total** | **Periodo completo** | **472** | **874** | **EP-03, EP-02 y EP-07** |
+
+Nota: si el trabajo lo realiza una sola persona, se recomienda extender el cronograma o reducir paralelismo, porque varias semanas superan las 40 horas efectivas.
+
+### Dependencias principales
+
+| Dependencia | Afecta | Observacion |
+|---|---|---|
+| Acceso a repositorio y configuraciones actuales | EP-03, EP-02, EP-07 | Necesario desde la semana 1. |
+| Responsables de Oracle, SMTP, SAUR, AMI y AD | EP-03, EP-02 | La rotacion y validacion de credenciales depende de terceros. |
+| Ambiente QA funcional | EP-07 | Debe estar disponible antes de la semana 8 para ejecutar regresion completa. |
+| Version .NET objetivo aprobada | EP-02 | Debe definirse antes de migrar proyectos. |
+| Datos de prueba representativos | EP-07 | Necesarios para expediente, catalogos, documentos y aprobaciones. |
 
 ### Hitos de control
 
-| Fecha objetivo | Hito | Responsable sugerido | Evidencia |
-|---|---|---|---|
-| 2026-06-19 | Aprobacion del plan de seguridad y pruebas | Lider tecnico / QA | Matriz de secretos y plan QA |
-| 2026-07-03 | Configuracion saneada y ruta .NET aprobada | DevOps / Arquitecto .NET | Rama controlada y documento de migracion |
-| 2026-07-17 | Migracion tecnica inicial completada | Senior .NET | Bitacora tecnica y avance de compilacion |
-| 2026-07-31 | Build estable y regresion funcional ejecutada | Senior .NET / QA | Build 0 errores y reporte de defectos |
-| 2026-08-14 | Version candidata validada | QA / Usuarios clave | Evidencia UAT y cierre tecnico |
-
-### Distribucion sugerida de esfuerzo
-
-| Perfil | Participacion principal | Enfoque |
+| Fecha objetivo | Hito | Evidencia esperada |
 |---|---|---|
-| Arquitecto / Senior .NET | Sprints 2, 3, 4 y 5 | Ruta de migracion, actualizacion de proyectos, compatibilidad y correccion tecnica. |
-| DevOps / Seguridad | Sprints 1, 2 y seguimiento | Secretos, variables de entorno, rotacion de credenciales, ambientes y configuracion segura. |
-| QA / Analista funcional | Sprints 1 a 5 | Plan de pruebas, casos funcionales, regresion, evidencia y UAT. |
-| DBA / responsables de integraciones | Apoyo puntual en sprints 2, 3 y 4 | Oracle, SAUR, AMI, AD, SMTP, validacion de conectividad y credenciales. |
+| 2026-06-19 | Inventario de seguridad y plan QA listos | Matriz de secretos, matriz de riesgos y plan de pruebas criticas |
+| 2026-07-03 | Seguridad base saneada y ruta .NET aprobada | Configuracion sin secretos activos, matriz de roles y documento de migracion |
+| 2026-07-17 | Paquetes y migracion inicial en avance verificable | Rama tecnica, paquetes actualizados y bitacora de errores de compatibilidad |
+| 2026-07-31 | Build estable y regresion en ejecucion | `dotnet build` con 0 errores y reporte inicial de pruebas |
+| 2026-08-14 | Cierre tecnico y funcional de version candidata | Evidencia UAT, defectos criticos cerrados o con plan aceptado |
 
-### Riesgos especificos del cronograma
+### Criterio profesional de estimacion
 
-| Riesgo | Impacto en cronograma | Mitigacion |
-|---|---|---|
-| Retraso en rotacion de credenciales | Puede extender EP-03 mas alla del Sprint 2 | Iniciar gestion institucional desde la primera semana y separar configuracion tecnica de aprobaciones externas. |
-| Paquetes no compatibles con la version .NET objetivo | Puede aumentar esfuerzo de EP-02 | Migrar en rama controlada, priorizar paquetes criticos y registrar decisiones tecnicas. |
-| Ambiente QA incompleto | Bloquea regresion de EP-07 | Preparar ambiente desde Sprint 1 y validar conectividad antes del Sprint 4. |
-| Baja disponibilidad de usuarios clave | Retrasa UAT | Agendar validaciones desde Sprint 3 con escenarios concretos y tiempos definidos. |
-| Defectos criticos posteriores a migracion | Puede requerir sprint adicional de estabilizacion | Mantener pruebas desde el inicio y priorizar flujos de mayor impacto operativo. |
-
-### Recomendacion de ejecucion
-
-El orden recomendado es iniciar con EP-03 y EP-07 en paralelo, porque la seguridad y las pruebas reducen el riesgo de la migracion. EP-02 debe comenzar formalmente en el Sprint 2, una vez que exista ruta tecnica aprobada y configuracion saneada. Para planificacion contractual, se recomienda reservar una holgura adicional de 1 sprint si el ambiente QA, la base de datos Oracle o la rotacion de credenciales dependen de terceros institucionales.
+Las horas se estiman considerando la experiencia de programador en sistemas ASP.NET Core legacy: lectura de codigo existente, analisis de dependencias, ajustes de configuracion, migracion gradual, correccion de incompatibilidades, ejecucion de pruebas y atencion de defectos. La mayor carga se concentra en EP-02 y EP-07 porque la migracion de framework puede generar errores no visibles hasta compilar, levantar MVC/API y ejecutar flujos completos con Oracle e integraciones externas.
