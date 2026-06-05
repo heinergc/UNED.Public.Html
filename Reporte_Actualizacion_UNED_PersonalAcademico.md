@@ -226,3 +226,66 @@ Informacion faltante que afecta la estimacion: version real de IIS/runtime produ
 - `UNED.PersonalAcademico.csproj`, `UNED.PersonalAcademico.API.csproj`, `UNED.PersonalAcademico.BL.csproj`, `UNED.PersonalAcademico.DAL.csproj`, `UNED.PersonalAcademico.EL.csproj`, `UNED.PersonalAcademico.UnitTests.csproj`: `TargetFramework netcoreapp2.2`.
 - `UNED.PersonalAcademico/appsettings.json` y `UNED.PersonalAcademico.API/appsettings.json`: configuraciones con secretos y endpoints.
 - `dotnet build UNED.PersonalAcademico.sln --no-restore`: 0 errores, 114 advertencias.
+
+## 12. Cronograma de trabajo propuesto para EP-03, EP-02 y EP-07
+
+Este cronograma se basa en la experiencia tecnica levantada en el analisis: solucion ASP.NET Core legacy en `netcoreapp2.2`, dependencias vulnerables, secretos expuestos en configuracion, baja cobertura de pruebas y alta necesidad de regresion funcional. La propuesta organiza las epicas criticas en 5 sprints de 2 semanas, iniciando el lunes 2026-06-08 y finalizando el viernes 2026-08-14.
+
+### Supuestos del cronograma
+
+- Equipo minimo recomendado: 1 desarrollador senior .NET, 1 DevOps o responsable tecnico de ambientes, 1 QA funcional/tecnico y apoyo puntual de DBA o responsables de integraciones.
+- Disponibilidad esperada: entre 30 y 40 horas semanales por perfil principal.
+- Se requiere acceso a ambiente QA, base de datos Oracle de pruebas, responsables de SAUR/AMI/AD/SMTP y usuarios clave para validacion.
+- Las actividades de EP-07 inician desde el primer sprint para acompanar la migracion, no solo al final.
+- La rotacion de credenciales depende de aprobaciones institucionales y puede ejecutarse en paralelo con ajustes tecnicos.
+
+### Cronograma por sprint
+
+| Sprint | Fechas | Epica principal | Actividades | Entregables | Criterio de cierre |
+|---|---|---|---|---|---|
+| Sprint 1 | 2026-06-08 al 2026-06-19 | EP-03 / EP-07 | Inventario de secretos, configuraciones sensibles, endpoints e integraciones. Definicion del plan de pruebas criticas. Identificacion de flujos de login, roles, sesion, JWT, expediente, catalogos y aprobaciones. | Matriz de secretos sin exponer valores, matriz inicial de riesgos de seguridad, plan QA critico. | Secretos e integraciones identificados; plan de pruebas aprobado por lider tecnico/funcional. |
+| Sprint 2 | 2026-06-22 al 2026-07-03 | EP-03 / EP-02 / EP-07 | Retiro de secretos de `appsettings.json`, definicion de variables de entorno o mecanismo seguro, inicio de rotacion de credenciales, revision de roles/autenticacion, definicion de ruta de migracion .NET y diseno de casos de prueba de seguridad. | Configuracion saneada en rama controlada, matriz de roles y permisos, ruta de migracion .NET aprobada, casos de prueba de seguridad. | Repositorio sin secretos activos; estrategia .NET objetivo documentada; casos de seguridad listos para ejecucion. |
+| Sprint 3 | 2026-07-06 al 2026-07-17 | EP-02 / EP-07 | Actualizacion de paquetes NuGet vulnerables, migracion inicial de proyectos MVC, API, BL, DAL, EL y UnitTests a version soportada, correccion de errores iniciales de compatibilidad, diseno de casos para expediente y catalogos, inicio de pruebas unitarias criticas. | Rama migrada inicial, paquetes actualizados, bitacora de incompatibilidades, casos funcionales prioritarios, suite unitaria inicial. | La solucion restaura paquetes y avanza hacia compilacion controlada; casos funcionales principales estan definidos. |
+| Sprint 4 | 2026-07-20 al 2026-07-31 | EP-02 / EP-07 | Correccion de errores de compilacion, validacion de middleware, sesiones, rutas MVC, API, Swagger, Oracle e integraciones principales. Ejecucion de regresion funcional en QA sobre flujos criticos. | Solucion compilable, evidencia tecnica de compatibilidad, reporte de regresion funcional, defectos priorizados. | `dotnet build` finaliza con 0 errores; MVC/API responden en QA; defectos criticos quedan registrados y priorizados. |
+| Sprint 5 | 2026-08-03 al 2026-08-14 | EP-07 / EP-02 / EP-03 | Correccion de defectos detectados, reejecucion de pruebas criticas, validacion final de usuarios clave, cierre de documentacion tecnica de dependencias, seguridad y pruebas. | Defectos criticos corregidos o con plan aceptado, evidencia UAT, documento tecnico actualizado, acta o correo de aceptacion funcional. | Usuarios clave aprueban la version candidata; no quedan defectos criticos abiertos sin plan de mitigacion. |
+
+### Vista por epica
+
+| Epica | Duracion estimada | Inicio | Fin | Horas minimas | Horas maximas | Dependencias clave | Resultado esperado |
+|---|---:|---|---|---:|---:|---|---|
+| EP-03 Seguridad y autenticacion | 2 sprints principales, con seguimiento hasta cierre | 2026-06-08 | 2026-08-14 | 80 | 140 | Accesos a sistemas externos, responsables de credenciales, politica institucional de secretos | Secretos fuera del codigo, credenciales rotadas, roles y autenticacion documentados y probados. |
+| EP-02 Actualizacion .NET y NuGet | 3 sprints principales | 2026-06-22 | 2026-08-14 | 120 | 220 | Ruta de migracion aprobada, paquetes compatibles, ambiente QA | Solucion migrada a version soportada, paquetes vulnerables actualizados y build sin errores. |
+| EP-07 Pruebas | 5 sprints transversales | 2026-06-08 | 2026-08-14 | 160 | 290 | Mapa funcional, ambiente QA, datos de prueba, usuarios clave | Plan QA, casos de prueba, suite unitaria minima, regresion funcional y validacion UAT. |
+
+### Hitos de control
+
+| Fecha objetivo | Hito | Responsable sugerido | Evidencia |
+|---|---|---|---|
+| 2026-06-19 | Aprobacion del plan de seguridad y pruebas | Lider tecnico / QA | Matriz de secretos y plan QA |
+| 2026-07-03 | Configuracion saneada y ruta .NET aprobada | DevOps / Arquitecto .NET | Rama controlada y documento de migracion |
+| 2026-07-17 | Migracion tecnica inicial completada | Senior .NET | Bitacora tecnica y avance de compilacion |
+| 2026-07-31 | Build estable y regresion funcional ejecutada | Senior .NET / QA | Build 0 errores y reporte de defectos |
+| 2026-08-14 | Version candidata validada | QA / Usuarios clave | Evidencia UAT y cierre tecnico |
+
+### Distribucion sugerida de esfuerzo
+
+| Perfil | Participacion principal | Enfoque |
+|---|---|---|
+| Arquitecto / Senior .NET | Sprints 2, 3, 4 y 5 | Ruta de migracion, actualizacion de proyectos, compatibilidad y correccion tecnica. |
+| DevOps / Seguridad | Sprints 1, 2 y seguimiento | Secretos, variables de entorno, rotacion de credenciales, ambientes y configuracion segura. |
+| QA / Analista funcional | Sprints 1 a 5 | Plan de pruebas, casos funcionales, regresion, evidencia y UAT. |
+| DBA / responsables de integraciones | Apoyo puntual en sprints 2, 3 y 4 | Oracle, SAUR, AMI, AD, SMTP, validacion de conectividad y credenciales. |
+
+### Riesgos especificos del cronograma
+
+| Riesgo | Impacto en cronograma | Mitigacion |
+|---|---|---|
+| Retraso en rotacion de credenciales | Puede extender EP-03 mas alla del Sprint 2 | Iniciar gestion institucional desde la primera semana y separar configuracion tecnica de aprobaciones externas. |
+| Paquetes no compatibles con la version .NET objetivo | Puede aumentar esfuerzo de EP-02 | Migrar en rama controlada, priorizar paquetes criticos y registrar decisiones tecnicas. |
+| Ambiente QA incompleto | Bloquea regresion de EP-07 | Preparar ambiente desde Sprint 1 y validar conectividad antes del Sprint 4. |
+| Baja disponibilidad de usuarios clave | Retrasa UAT | Agendar validaciones desde Sprint 3 con escenarios concretos y tiempos definidos. |
+| Defectos criticos posteriores a migracion | Puede requerir sprint adicional de estabilizacion | Mantener pruebas desde el inicio y priorizar flujos de mayor impacto operativo. |
+
+### Recomendacion de ejecucion
+
+El orden recomendado es iniciar con EP-03 y EP-07 en paralelo, porque la seguridad y las pruebas reducen el riesgo de la migracion. EP-02 debe comenzar formalmente en el Sprint 2, una vez que exista ruta tecnica aprobada y configuracion saneada. Para planificacion contractual, se recomienda reservar una holgura adicional de 1 sprint si el ambiente QA, la base de datos Oracle o la rotacion de credenciales dependen de terceros institucionales.
