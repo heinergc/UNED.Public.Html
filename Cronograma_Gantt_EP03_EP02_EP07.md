@@ -69,7 +69,7 @@ Leyenda: `X` = semana con trabajo planificado.
 | T15 | EP-02 | Documentacion tecnica framework | 12 | 2026-09-07 | 2026-09-18 | T13, T14 |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X |  |  |  |  |  |  |  |  |
 | T16 | EP-07 | Casos expediente, catalogos, aprobaciones | 32 | 2026-09-07 | 2026-09-25 | T02 |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X | X |  |  |  |  |  |  |  |
 | T17 | EP-07 | Pruebas unitarias servicios criticos | 60 | 2026-09-21 | 2026-10-16 | T10, T11 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X | X | X |  |  |  |  |
-| T18 | EP-07 | Datos de prueba y checklist | 23 | 2026-10-05 | 2026-10-16 | T16 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X |  |  |  |  |
+| T18 | EP-07 | Preparar datos de prueba, escenarios y checklist de regresion | 23 | 2026-10-05 | 2026-10-16 | T16 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X |  |  |  |  |
 | T19 | EP-07 | Regresion funcional completa en QA | 69 | 2026-10-12 | 2026-10-30 | T13, T18 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X | X |  |  |
 | T20 | EP-07 | Corregir defectos detectados | 60 | 2026-10-26 | 2026-11-13 | T19 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X | X |
 | T21 | EP-07 | Reejecutar pruebas y evidencia UAT | 24 | 2026-11-02 | 2026-11-13 | T20 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | X | X |
@@ -96,13 +96,23 @@ Leyenda: `X` = semana con trabajo planificado.
 | S15 | 2026-09-14 al 2026-09-18 | 30,0 | 30 | 0,0 | Casos de prueba funcionales |
 | S16 | 2026-09-21 al 2026-09-25 | 30,0 | 30 | 0,0 | Pruebas unitarias inicio |
 | S17 | 2026-09-28 al 2026-10-02 | 30,0 | 30 | 0,0 | Pruebas unitarias continuacion |
-| S18 | 2026-10-05 al 2026-10-09 | 30,0 | 30 | 0,0 | Datos de prueba y regresion |
+| S18 | 2026-10-05 al 2026-10-09 | 30,0 | 30 | 0,0 | Preparacion de datos, escenarios y checklist de regresion |
 | S19 | 2026-10-12 al 2026-10-16 | 30,0 | 30 | 0,0 | Regresion funcional |
 | S20 | 2026-10-19 al 2026-10-23 | 30,0 | 30 | 0,0 | Regresion funcional continuacion |
 | S21 | 2026-10-26 al 2026-10-30 | 30,0 | 30 | 0,0 | Correccion de defectos |
 | S22 | 2026-11-02 al 2026-11-06 | 30,0 | 30 | 0,0 | Correccion de defectos y reejecucion |
 | S23 | 2026-11-09 al 2026-11-13 | 13,0 | 30 | 17,0 | Evidencia UAT, validacion final y reserva |
 | **Total** | **Periodo completo** | **673,0** | **690,0** | **17,0** | **EP-03, EP-02 y EP-07** |
+
+### Enfoque de datos de prueba y regresion
+
+La actividad de datos de prueba y regresion consiste en preparar informacion controlada y escenarios funcionales para comprobar que los procesos existentes siguen funcionando despues de la actualizacion tecnica. No se trata solamente de probar pantallas, sino de validar que los cambios en .NET, paquetes NuGet, seguridad, configuracion, Oracle e integraciones no rompan flujos que ya eran parte de la operacion normal del sistema.
+
+El trabajo incluye preparar usuarios y roles de prueba, expedientes con distintos estados, catalogos activos e inactivos, documentos adjuntos, casos de aprobacion, registros asociados a plazas, datos academicos, informacion laboral, capacitaciones, idiomas, proyectos, premios y produccion academica. Tambien se deben considerar datos vinculados con integraciones como Oracle, SAUR, AMI, Active Directory, SMTP y servicios externos que participen en los flujos principales.
+
+La regresion funcional debe cubrir al menos los procesos criticos del expediente digital: ingreso al sistema, validacion de permisos, consulta de expediente, edicion de informacion personal, carga o consulta de documentos, uso de catalogos, aprobaciones, reportes basicos y validacion de servicios API cuando correspondan. Cada escenario debe tener resultado esperado, datos usados, evidencia de ejecucion y estado final: aprobado, fallido, bloqueado o pendiente.
+
+El entregable esperado de esta actividad es un conjunto de datos y una matriz de pruebas que permita ejecutar la regresion de forma ordenada. Esta matriz debe indicar modulo, escenario, rol requerido, datos de entrada, pasos de prueba, resultado esperado, resultado obtenido, evidencia y observaciones. Con esto se facilita detectar defectos, repetir pruebas despues de correcciones y demostrar que la version candidata mantiene la funcionalidad principal.
 
 ### Hitos de control
 
